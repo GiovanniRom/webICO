@@ -1,0 +1,145 @@
+#root {
+  width: 100%;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+}
+
+/* Logos cabecera: responsivos en pantallas pequeñas */
+.cabecera-logo-fes {
+  max-width: 100%;
+}
+.cabecera-logo-ico {
+  max-width: 100%;
+}
+@media (max-width: 768px) {
+  .cabecera-logo-fes {
+    max-width: min(85vw, 400px);
+  }
+  .cabecera-logo-ico {
+    max-width: min(50vw, 220px);
+  }
+}
+@media (max-width: 576px) {
+  .cabecera-logo-fes {
+    max-width: min(90vw, 320px);
+  }
+  .cabecera-logo-ico {
+    max-width: min(55vw, 180px);
+  }
+}
+
+/* Barra de navegación: pestaña activa */
+.nav-menu-principal.ant-menu-horizontal > .ant-menu-item-selected,
+.nav-menu-principal.ant-menu-horizontal .ant-menu-item-selected {
+  background-color: #001529 !important;
+  color: #ba9a3a !important;
+  font-size: 1.2em;
+  font-weight: 600;
+}
+
+.nav-menu-principal.ant-menu-horizontal > .ant-menu-item {
+  font-size: 0.95em;
+}
+
+/* Menú hamburguesa (Drawer): fondo #032047, texto #ba9a3a */
+.drawer-menu-nav.ant-drawer .ant-drawer-content {
+  background: #032047;
+}
+.drawer-menu-nav .ant-drawer-header-title,
+.drawer-menu-nav .ant-drawer-close {
+  color: #ba9a3a !important;
+}
+.drawer-menu-nav .ant-menu-dark.ant-menu-vertical .ant-menu-item,
+.drawer-menu-nav .ant-menu-dark.ant-menu-vertical .ant-menu-item-selected {
+  color: #ba9a3a !important;
+}
+.drawer-menu-nav .ant-menu-dark.ant-menu-vertical .ant-menu-item:hover,
+.drawer-menu-nav .ant-menu-dark.ant-menu-vertical .ant-menu-item-selected {
+  color: #fff !important;
+  background: rgba(186, 154, 58, 0.2) !important;
+}
+
+/* Tarjeta icono título: elevación al hover */
+.tarjeta-icono-titulo {
+  transition: box-shadow 0.25s ease, transform 0.25s ease;
+}
+.tarjeta-icono-titulo:hover {
+  box-shadow: 0px 6px 12px -2px rgba(0,0,0,0.25),
+    0px 12px 20px 0px rgba(0,0,0,0.18),
+    0px 2px 24px 0px rgba(0,0,0,0.14);
+  transform: translateY(-4px);
+}
+
+.tarjeta-icono-titulo .icono-tarjeta img {
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+/* Tarjeta información: icono ampliado, texto justificado, hover */
+.tarjeta-informacion {
+  transition: box-shadow 0.25s ease, transform 0.25s ease;
+}
+.tarjeta-informacion:hover {
+  box-shadow: 0px 6px 12px -2px rgba(0,0,0,0.25),
+    0px 12px 20px 0px rgba(0,0,0,0.18),
+    0px 2px 24px 0px rgba(0,0,0,0.14);
+  transform: translateY(-4px);
+}
+.tarjeta-informacion .icono-tarjeta-informacion img {
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.tarjeta-informacion-dos-columnas {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+@media (max-width: 576px) {
+  .tarjeta-informacion-dos-columnas {
+    grid-template-columns: 1fr;
+  }
+}
+
+.logo {
+  height: 6em;
+  padding: 1.5em;
+  will-change: filter;
+  transition: filter 300ms;
+}
+.logo:hover {
+  filter: drop-shadow(0 0 2em #646cffaa);
+}
+.logo.react:hover {
+  filter: drop-shadow(0 0 2em #61dafbaa);
+}
+
+@keyframes logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  a:nth-of-type(2) .logo {
+    animation: logo-spin infinite 20s linear;
+  }
+}
+
+.card {
+  padding: 2em;
+}
+
+.read-the-docs {
+  color: #888;
+}
