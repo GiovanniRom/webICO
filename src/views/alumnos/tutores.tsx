@@ -156,8 +156,8 @@ const html = `
     table{
         min-width: 700px;
     }
-}
-</style>
+        }
+    </style>
 </head>
 <body>
 
@@ -176,13 +176,13 @@ const html = `
         <option value="	MATUTINO	">Matutino</option>
         <option value="	VESPERTINO	">Vespertino</option>
     </select>
-</div>
+    </div>
 
 <div class="contenido">
     <h2>Tutores 2026-II</h2>
 <div class="tabla-contenedor">
     <table>
-        <thead>
+                    <thead>
             <tr>
                 <th>Grupo</th>
                 <th>Profesor</th>
@@ -191,10 +191,10 @@ const html = `
                 <th>Horario</th>
                 <th>Correo</th>
             </tr>
-        </thead>
+                    </thead>
         <tbody id="tablaDatos"></tbody>
-    </table>
-</div>
+                </table>
+            </div>
 
 <script>
 
@@ -308,7 +308,7 @@ export default function AlumnosTutores() {
       <div style={{ margin: "-10px -10px 0 -10px" }}>
         <CabeceraTitulo variante="dorado">TUTORES</CabeceraTitulo>
         <CabeceraTitulo variante="azul" style={{ width: "95%" }}>
-          SEMESTRE 2026 II
+            SEMESTRE 2026 II
         </CabeceraTitulo>
       </div>
       <Contenido html={html} sandbox="allow-same-origin allow-scripts" />
