@@ -38,15 +38,17 @@ export default function MainLayout() {
   };
 
   return (
-    <Layout style={{ minHeight: "100vh", width: "100%" }}>
+    <Layout style={{ minHeight: "100vh", width: "100%", maxWidth: "100vw", overflowX: "hidden" }}>
       <Header
         style={{
           display: "flex",
           alignItems: "center",
-          gap: 16,
-          paddingInline: 24,
+          gap: esPantallaPequena ? 8 : 16,
+          paddingInline: esPantallaPequena ? 12 : 24,
           background: "#001529",
           width: "100%",
+          maxWidth: "100vw",
+          flexWrap: "wrap",
         }}
       >
         {/* Contenedor para el logo */}
@@ -74,10 +76,11 @@ export default function MainLayout() {
           className="header-titulo"
           style={{
             color: "rgba(255,255,255,0.9)",
-            fontSize: 17,
+            fontSize: esPantallaPequena ? 14 : 17,
             fontWeight: 500,
-            whiteSpace: "nowrap",
-            flexShrink: 0,
+            whiteSpace: esPantallaPequena ? "normal" : "nowrap",
+            flexShrink: 1,
+            minWidth: 0,
           }}
         >
           Facultad de Estudios Superiores Aragón
@@ -146,11 +149,11 @@ export default function MainLayout() {
             "linear-gradient(to right,rgb(8, 43, 88) 25%,rgb(210, 224, 240) 100%)",
           borderTop: "5px solid #ba9a3a",
           borderBottom: "5px solid #ba9a3a",
-          padding: "8px 16px",
+          padding: esPantallaPequena ? "8px 12px" : "8px 16px",
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          gap: 32,
+          gap: esPantallaPequena ? 16 : 32,
           flexWrap: "wrap",
           flexGrow: 1,
           backgroundImage: `url(${background})`,
@@ -158,6 +161,8 @@ export default function MainLayout() {
           backgroundPosition: "center top",
           backgroundRepeat: "no-repeat",
           backgroundAttachment: "fixed",
+          overflow: "hidden",
+          maxWidth: "100vw",
         }}
       >
         <img
@@ -185,9 +190,9 @@ export default function MainLayout() {
           }}
         />
       </div>
-      <Content style={{ padding: "24px 16px" }}>
-        <Row justify="center">
-          <Col xs={24} sm={24} md={22} lg={20} xl={18} xxl={16}>
+      <Content style={{ padding: esPantallaPequena ? "16px 12px" : "24px 16px", maxWidth: "100vw", overflowX: "hidden" }}>
+        <Row justify="center" style={{ margin: 0, maxWidth: "100%" }}>
+          <Col xs={24} sm={24} md={22} lg={20} xl={18} xxl={16} className="main-content-wrap" style={{ minWidth: 0, maxWidth: "100%" }}>
             <Outlet />
           </Col>
         </Row>
@@ -197,14 +202,15 @@ export default function MainLayout() {
           background: "#032047",
           color: "rgba(255,255,255,0.85)",
           textAlign: "center",
-          padding: "16px 24px",
+          padding: esPantallaPequena ? "16px 12px" : "16px 24px",
           borderTop: "5px solid #ba9a3a",
           display: "flex",
           alignItems: "center",
-          gap: 100,
+          gap: esPantallaPequena ? 24 : 100,
           flexDirection: "row",
           flexWrap: "wrap",
           justifyContent: "center",
+          maxWidth: "100vw",
         }}
       >
         <img
