@@ -19,7 +19,7 @@ const VARIANTES = {
 
 export interface CabeceraTituloProps {
   /** Contenido del título (texto o nodos) */
-  readonly children: ReactNode;
+  readonly children?: ReactNode;
   /** Estilo visual: dorado (fondo oro) o azul (fondo azul oscuro) */
   readonly variante?: keyof typeof VARIANTES;
   /** Nivel del Title de Ant Design (1-5). Por defecto 2 */
