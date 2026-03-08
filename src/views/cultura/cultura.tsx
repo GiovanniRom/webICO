@@ -1,5 +1,6 @@
-import { Row, Col, Typography } from "antd";
+import { Row, Col } from "antd";
 import TarjetaIconoTitulo from "../../components/TarjetaIconoTitulo";
+import CabeceraTitulo from "../../components/CabeceraTitulo.tsx";
 import correo from "../../assets/images/ligas/cultura/correo.png";
 import divulgacion from "../../assets/images/ligas/cultura/divulgacion.png";
 import escudo from "../../assets/images/ligas/cultura/escudo.png";
@@ -9,48 +10,14 @@ import seguridad from "../../assets/images/ligas/cultura/seguridad.png";
 import tv from "../../assets/images/ligas/cultura/tv.png";
 import unam from "../../assets/images/ligas/cultura/unam.png";
 
-const { Title } = Typography;
-
 export default function Cultura() {
   return (
     <>
       <div style={{ margin: "-10px -10px 0 -10px", marginBottom: "24px" }}>
-        <div
-          style={{
-            padding: "16px 24px 24px",
-            width: "100%",
-            boxSizing: "border-box",
-            backgroundColor: "#ba9a3a",
-            color: "#032047",
-            clipPath:
-              "polygon(0 0, 50% 0, 100% calc(50% - 60px), calc(100% - 96px) 100%, 24px 100%, 0 calc(100% - 24px))",
-          }}
-        >
-          <Title
-            level={2}
-            style={{ margin: 0, color: "#032047", textAlign: "center" }}
-          >
-            CULTURA
-          </Title>
-        </div>
-        <div
-          style={{
-            padding: "16px 24px 24px",
-            width: "95%",
-            boxSizing: "border-box",
-            backgroundColor: "#032047",
-            color: "#ba9a3a",
-            clipPath:
-              "polygon(0 0, 50% 0, 100% calc(50% - 60px), calc(100% - 96px) 100%, 24px 100%, 0 calc(100% - 24px))",
-          }}
-        >
-          <Title
-            level={2}
-            style={{ margin: 0, color: "#ba9a3a", textAlign: "center" }}
-          >
-            INFORMATICA
-          </Title>
-        </div>
+        <CabeceraTitulo variante="dorado">CULTURA</CabeceraTitulo>
+        <CabeceraTitulo variante="azul" style={{ width: "95%" }}>
+          INFORMATICA
+        </CabeceraTitulo>
       </div>
 
       <Row gutter={[24, 24]} justify="center">

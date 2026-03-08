@@ -1,6 +1,7 @@
 import { Row, Col, Typography } from "antd";
 import imagenBibliotecas from "../../assets/images/ligas/biblioteca/digital.png";
 import imagenBibliotecas2 from "../../assets/images/ligas/biblioteca/fes.png";
+import CabeceraTitulo from "../../components/CabeceraTitulo.tsx";
 
 const { Title, Paragraph } = Typography;
 
@@ -15,44 +16,17 @@ export default function Bibliotecas() {
       }}
     >
       <div style={{ margin: "-10px -10px 0 -10px", marginBottom: "24px" }}>
-        <div
-          style={{
-            padding: "16px 24px 24px",
-            width: "100%",
-            boxSizing: "border-box",
-            backgroundColor: "#ba9a3a",
-            color: "#032047",
-            clipPath:
-              "polygon(0 0, 50% 0, 100% calc(50% - 60px), calc(100% - 96px) 100%, 24px 100%, 0 calc(100% - 24px))",
-          }}
-        >
-          <Title
-            level={2}
-            style={{ margin: 0, color: "#032047", textAlign: "center" }}
-          >
-            BIBLIOTECAS
-          </Title>
-        </div>
-        <div
-          style={{
-            padding: "16px 24px 24px",
-            width: "95%",
-            boxSizing: "border-box",
-            backgroundColor: "#032047",
-            color: "#ba9a3a",
-            clipPath:
-              "polygon(0 0, 50% 0, 100% calc(50% - 60px), calc(100% - 96px) 100%, 24px 100%, 0 calc(100% - 24px))",
-          }}
-        >
-          <Title
-            level={2}
-            style={{ margin: 0, color: "#ba9a3a", textAlign: "center" }}
-          ></Title>
-        </div>
+        <CabeceraTitulo variante="dorado">BIBLIOTECAS</CabeceraTitulo>
+        <CabeceraTitulo variante="azul" style={{ width: "95%" }} />
       </div>
       <Title
         level={3}
-        style={{ margin: 0, color: "#032047", textAlign: "center" }}
+        style={{
+        margin: 0,
+        color: "#032047",
+        textAlign: "center",
+        fontFamily: '"poppins-bold", sans-serif',
+      }}
       >
         BIBLIOTECA DIGITAL UNAM
       </Title>
@@ -99,14 +73,30 @@ export default function Bibliotecas() {
             </div>
           </Col>
           <Col xs={24} md={14} lg={15}>
-            <Title level={4} style={{ marginTop: 0 }}>
+            <Title
+              level={4}
+              style={{
+                marginTop: 0,
+                fontFamily: '"poppins-semibold", sans-serif',
+              }}
+            >
               BIDI UNAM
             </Title>
-            <Paragraph style={{ textAlign: "justify", marginBottom: 16 }}>
+            <Paragraph
+              style={{
+                textAlign: "justify",
+                marginBottom: 16,
+                fontFamily: '"poppins-regular", sans-serif',
+              }}>
               Accede a la biblioteca digital de la UNAM para consultar libros,
               revistas, documentos y más.
             </Paragraph>
-            <Paragraph style={{ textAlign: "justify", marginBottom: 16 }}>
+            <Paragraph
+              style={{
+                textAlign: "justify",
+                marginBottom: 16,
+                fontFamily: '"poppins-regular", sans-serif',
+              }}>
               Te invitamos a conocer los horarios, requisitos de acceso y
               catálogos disponibles. Para más información, acude al módulo de
               biblioteca o consulta el portal de la Dirección General de
@@ -118,7 +108,12 @@ export default function Bibliotecas() {
       </a>
       <Title
         level={3}
-        style={{ margin: 0, color: "#032047", textAlign: "center" }}
+        style={{
+        margin: 0,
+        color: "#032047",
+        textAlign: "center",
+        fontFamily: '"poppins-bold", sans-serif',
+      }}
       >
         BIBLIOTECA FES ARAGÓN
       </Title>
@@ -167,16 +162,32 @@ export default function Bibliotecas() {
             </div>
           </Col>
           <Col xs={24} md={14} lg={15}>
-            <Title level={4} style={{ marginTop: 0 }}>
+            <Title
+              level={4}
+              style={{
+                marginTop: 0,
+                fontFamily: '"poppins-semibold", sans-serif',
+              }}
+            >
               Biblioteca "Jesus Reyes Heroles"
             </Title>
-            <Paragraph style={{ textAlign: "justify", marginBottom: 16 }}>
+            <Paragraph
+              style={{
+                textAlign: "justify",
+                marginBottom: 16,
+                fontFamily: '"poppins-regular", sans-serif',
+              }}>
               La FES Aragón cuenta con servicios de biblioteca que apoyan la
               docencia, la investigación y el aprendizaje. Los usuarios pueden
               consultar acervo físico y digital, así como acceder a bases de
               datos y recursos en línea.
             </Paragraph>
-            <Paragraph style={{ textAlign: "justify", marginBottom: 16 }}>
+            <Paragraph
+              style={{
+                textAlign: "justify",
+                marginBottom: 16,
+                fontFamily: '"poppins-regular", sans-serif',
+              }}>
               Te invitamos a conocer los horarios, requisitos de acceso y
               catálogos disponibles. Para más información, acude al módulo de
               biblioteca o consulta el portal de la Dirección General de

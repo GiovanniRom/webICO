@@ -1,7 +1,6 @@
-import { Typography, Collapse, Row, Col } from "antd";
+import { Collapse, Row, Col } from "antd";
 import imagenIngreso from "../../assets/images/plan/ingresoicon.png";
-
-const { Title } = Typography;
+import CabeceraTitulo from "../../components/CabeceraTitulo.tsx";
 
 export default function PlanIngreso() {
   return (
@@ -14,42 +13,10 @@ export default function PlanIngreso() {
       }}
     >
       <div style={{ margin: "-10px -10px 0 -10px" }}>
-        <div
-          style={{
-            padding: "16px 24px 24px",
-            width: "100%",
-            boxSizing: "border-box",
-            backgroundColor: "#ba9a3a",
-            color: "#032047",
-            clipPath:
-              "polygon(0 0, 50% 0, 100% calc(50% - 60px), calc(100% - 96px) 100%, 24px 100%, 0 calc(100% - 24px))",
-          }}
-        >
-          <Title
-            level={2}
-            style={{ margin: 0, color: "#032047", textAlign: "center" }}
-          >
-            PERFIL DE
-          </Title>
-        </div>
-        <div
-          style={{
-            padding: "16px 24px 24px",
-            width: "95%",
-            boxSizing: "border-box",
-            backgroundColor: "#032047",
-            color: "#ba9a3a",
-            clipPath:
-              "polygon(0 0, 50% 0, 100% calc(50% - 60px), calc(100% - 96px) 100%, 24px 100%, 0 calc(100% - 24px))",
-          }}
-        >
-          <Title
-            level={2}
-            style={{ margin: 0, color: "#ba9a3a", textAlign: "center" }}
-          >
-            INGRESO
-          </Title>
-        </div>
+        <CabeceraTitulo variante="dorado">PERFIL DE</CabeceraTitulo>
+        <CabeceraTitulo variante="azul" style={{ width: "95%" }}>
+          INGRESO
+        </CabeceraTitulo>
       </div>
 
       <Row gutter={[24, 24]} style={{ marginTop: 16 }}>
@@ -79,9 +46,18 @@ export default function PlanIngreso() {
             items={[
               {
                 key: "1",
-                label: "¿Qué es el perfil de ingreso?",
+                label: (
+                  <span style={{ fontFamily: '"poppins-semibold", sans-serif' }}>
+                    ¿Qué es el perfil de ingreso?
+                  </span>
+                ),
                 children: (
-                  <p style={{ margin: 0, textAlign: "justify" }}>
+                  <p
+                  style={{
+                    margin: 0,
+                    textAlign: "justify",
+                    fontFamily: '"poppins-regular", sans-serif',
+                  }}>
                     El perfil de ingreso describe las características que debe
                     reunir el aspirante a la carrera de Ingeniería en
                     Computación en la FES Aragón: conocimientos previos,
@@ -92,9 +68,18 @@ export default function PlanIngreso() {
               },
               {
                 key: "2",
-                label: "Conocimientos recomendados",
+                label: (
+                  <span style={{ fontFamily: '"poppins-semibold", sans-serif' }}>
+                    Conocimientos recomendados
+                  </span>
+                ),
                 children: (
-                  <p style={{ margin: 0, textAlign: "justify" }}>
+                  <p
+                  style={{
+                    margin: 0,
+                    textAlign: "justify",
+                    fontFamily: '"poppins-regular", sans-serif',
+                  }}>
                     Se recomienda que el aspirante tenga bases sólidas en
                     matemáticas (álgebra, geometría, precálculo), capacidad de
                     razonamiento lógico y abstracto, así como interés por la
@@ -105,9 +90,18 @@ export default function PlanIngreso() {
               },
               {
                 key: "3",
-                label: "Habilidades y actitudes",
+                label: (
+                  <span style={{ fontFamily: '"poppins-semibold", sans-serif' }}>
+                    Habilidades y actitudes
+                  </span>
+                ),
                 children: (
-                  <p style={{ margin: 0, textAlign: "justify" }}>
+                  <p
+                  style={{
+                    margin: 0,
+                    textAlign: "justify",
+                    fontFamily: '"poppins-regular", sans-serif',
+                  }}>
                     Es deseable contar con capacidad de análisis, trabajo en
                     equipo, disciplina para el estudio autónomo, curiosidad
                     científica y disposición para actualizarse de forma continua

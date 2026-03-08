@@ -1,5 +1,6 @@
 import { Typography, Collapse } from "antd";
 import VistaPreviaDocumento from "../../components/VistaPreviaDocumento.tsx";
+import CabeceraTitulo from "../../components/CabeceraTitulo.tsx";
 
 const { Title } = Typography;
 
@@ -14,54 +15,32 @@ export default function AlumnosRedes() {
       }}
     >
       <div style={{ margin: "-10px -10px 0 -10px" }}>
-        <div
-          style={{
-            padding: "16px 24px 24px",
-            width: "100%",
-            boxSizing: "border-box",
-            backgroundColor: "#ba9a3a",
-            color: "#032047",
-            clipPath:
-              "polygon(0 0, 50% 0, 100% calc(50% - 60px), calc(100% - 96px) 100%, 24px 100%, 0 calc(100% - 24px))",
-          }}
-        >
-          <Title
-            level={2}
-            style={{ margin: 0, color: "#032047", textAlign: "center" }}
-          >
-            PRÁCTICAS DE REDES DE COMPUTADORAS
-          </Title>
-        </div>
-        <div
-          style={{
-            padding: "16px 24px 24px",
-            width: "95%",
-            boxSizing: "border-box",
-            backgroundColor: "#032047",
-            color: "#ba9a3a",
-            clipPath:
-              "polygon(0 0, 50% 0, 100% calc(50% - 60px), calc(100% - 96px) 100%, 24px 100%, 0 calc(100% - 24px))",
-          }}
-        >
-          <Title
-            level={2}
-            style={{ margin: 0, color: "#ba9a3a", textAlign: "center" }}
-          >
-            PRÁCTICAS DE LABORATORIO
-          </Title>
-        </div>
+        <CabeceraTitulo variante="dorado">
+          PRÁCTICAS DE REDES DE COMPUTADORAS
+        </CabeceraTitulo>
+        <CabeceraTitulo variante="azul" style={{ width: "95%" }}>
+          PRÁCTICAS DE LABORATORIO
+        </CabeceraTitulo>
       </div>
       <Collapse
         style={{ marginTop: 16 }}
         items={[
           {
             key: "redes1",
-            label: "PRÁCTICAS DE REDES I",
+            label: (
+              <span style={{ fontFamily: '"poppins-bold", sans-serif' }}>
+                PRÁCTICAS DE REDES I
+              </span>
+            ),
             children: (
               <>
                 <Title
                   level={3}
-                  style={{ marginBottom: 16, textAlign: "center" }}
+                  style={{
+                  marginBottom: 16,
+                  textAlign: "center",
+                  fontFamily: '"poppins-semibold", sans-serif',
+                }}
                 >
                   PRÁCTICA 1
                 </Title>
@@ -99,7 +78,11 @@ export default function AlumnosRedes() {
                 </div>
                 <Title
                   level={3}
-                  style={{ marginBottom: 16, textAlign: "center" }}
+                  style={{
+                  marginBottom: 16,
+                  textAlign: "center",
+                  fontFamily: '"poppins-semibold", sans-serif',
+                }}
                 >
                   PRÁCTICA 2
                 </Title>
@@ -137,7 +120,11 @@ export default function AlumnosRedes() {
                 </div>
                 <Title
                   level={3}
-                  style={{ marginBottom: 16, textAlign: "center" }}
+                  style={{
+                  marginBottom: 16,
+                  textAlign: "center",
+                  fontFamily: '"poppins-semibold", sans-serif',
+                }}
                 >
                   PRÁCTICA 3
                 </Title>
@@ -175,7 +162,11 @@ export default function AlumnosRedes() {
                 </div>
                 <Title
                   level={3}
-                  style={{ marginBottom: 16, textAlign: "center" }}
+                  style={{
+                  marginBottom: 16,
+                  textAlign: "center",
+                  fontFamily: '"poppins-semibold", sans-serif',
+                }}
                 >
                   PRÁCTICA 4
                 </Title>
@@ -213,7 +204,11 @@ export default function AlumnosRedes() {
                 </div>
                 <Title
                   level={3}
-                  style={{ marginBottom: 16, textAlign: "center" }}
+                  style={{
+                  marginBottom: 16,
+                  textAlign: "center",
+                  fontFamily: '"poppins-semibold", sans-serif',
+                }}
                 >
                   PRÁCTICA 5
                 </Title>
@@ -251,7 +246,11 @@ export default function AlumnosRedes() {
                 </div>
                 <Title
                   level={3}
-                  style={{ marginBottom: 16, textAlign: "center" }}
+                  style={{
+                  marginBottom: 16,
+                  textAlign: "center",
+                  fontFamily: '"poppins-semibold", sans-serif',
+                }}
                 >
                   PRÁCTICA 6 y 7
                 </Title>
@@ -289,7 +288,11 @@ export default function AlumnosRedes() {
                 </div>
                 <Title
                   level={3}
-                  style={{ marginBottom: 16, textAlign: "center" }}
+                  style={{
+                  marginBottom: 16,
+                  textAlign: "center",
+                  fontFamily: '"poppins-semibold", sans-serif',
+                }}
                 >
                   PRÁCTICA 8
                 </Title>
@@ -316,12 +319,20 @@ export default function AlumnosRedes() {
           },
           {
             key: "redes2",
-            label: "PRÁCTICAS DE REDES II",
+            label: (
+              <span style={{ fontFamily: '"poppins-bold", sans-serif' }}>
+                PRÁCTICAS DE REDES II
+              </span>
+            ),
             children: (
               <>
                 <Title
                   level={3}
-                  style={{ marginBottom: 16, textAlign: "center" }}
+                  style={{
+                  marginBottom: 16,
+                  textAlign: "center",
+                  fontFamily: '"poppins-semibold", sans-serif',
+                }}
                 >
                   PRÁCTICA 1
                 </Title>
@@ -359,7 +370,11 @@ export default function AlumnosRedes() {
                 </div>
                 <Title
                   level={3}
-                  style={{ marginBottom: 16, textAlign: "center" }}
+                  style={{
+                  marginBottom: 16,
+                  textAlign: "center",
+                  fontFamily: '"poppins-semibold", sans-serif',
+                }}
                 >
                   PRÁCTICA 2
                 </Title>
@@ -397,7 +412,11 @@ export default function AlumnosRedes() {
                 </div>
                 <Title
                   level={3}
-                  style={{ marginBottom: 16, textAlign: "center" }}
+                  style={{
+                  marginBottom: 16,
+                  textAlign: "center",
+                  fontFamily: '"poppins-semibold", sans-serif',
+                }}
                 >
                   PRÁCTICA 3
                 </Title>
@@ -454,7 +473,11 @@ export default function AlumnosRedes() {
                 </div>
                 <Title
                   level={3}
-                  style={{ marginBottom: 16, textAlign: "center" }}
+                  style={{
+                  marginBottom: 16,
+                  textAlign: "center",
+                  fontFamily: '"poppins-semibold", sans-serif',
+                }}
                 >
                   PRÁCTICA 4
                 </Title>

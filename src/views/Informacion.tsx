@@ -1,6 +1,6 @@
 import { Row, Col } from "antd";
 import TarjetaInformacion from "../components/TarjetaInformacion";
-import values from "../assets/images/informacion/valoresicon1.png";
+import values from "../assets/images/informacion/valoresicon.png";
 import objectives from "../assets/images/informacion/objetivosicon.png";
 import vision from "../assets/images/informacion/visionicon.png";
 import mission from "../assets/images/informacion/misionicon.png";

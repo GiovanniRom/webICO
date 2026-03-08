@@ -23,6 +23,7 @@ export interface TarjetaIconoTituloProps {
 
 const linkStyle: React.CSSProperties = {
   display: "block",
+  height: "100%",
   textDecoration: "none",
   color: "inherit",
   cursor: "pointer",
@@ -61,6 +62,9 @@ export default function TarjetaIconoTitulo({
     <Card
       className={`tarjeta-icono-titulo ${className ?? ""}`.trim()}
       style={{
+        height: "100%",
+        display: "flex",
+        flexDirection: "column",
         textAlign: "center",
         border: "none",
         borderRadius: 8,
@@ -69,6 +73,7 @@ export default function TarjetaIconoTitulo({
       }}
       styles={{
         body: {
+          flex: 1,
           padding: "24px 24px 0 24px",
           display: "flex",
           flexDirection: "column",
@@ -90,7 +95,14 @@ export default function TarjetaIconoTitulo({
       >
         {iconoEscalable}
       </div>
-      <Text style={{ display: "block", fontSize: 20, fontWeight: 700 }}>
+      <Text
+        style={{
+          display: "block",
+          fontSize: 20,
+          fontWeight: 700,
+          fontFamily: '"poppins-bold", sans-serif',
+        }}
+      >
         {titulo}
       </Text>
       {descripcion ? (
@@ -102,6 +114,7 @@ export default function TarjetaIconoTitulo({
             lineHeight: 1.4,
             fontWeight: 500,
             marginBottom: 10,
+            fontFamily: '"poppins-regular", sans-serif',
           }}
         >
           {descripcion}

@@ -1,12 +1,27 @@
 import { Typography } from "antd";
-import Contenido from "../../components/ContenidoHtml.tsx";
+import CabeceraTitulo from "../../components/CabeceraTitulo.tsx";
+import pdfExtraLargo from "../../assets/pdf/extra_largo_ico.pdf";
+import pdfExtrasPrimera from "../../assets/pdf/extras_primera_vuelta.pdf";
 
 const { Title } = Typography;
 
-// Ejemplo: reemplaza este HTML por tu contenido real (tablas de horarios, etc.), es necesario parsear el HTML para que se pueda renderizar en el iframe.
-const html = `
+const bloquePdfStyle: React.CSSProperties = {
+  width: "100%",
+  marginBottom: 32,
+  padding: 16,
+  boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
+  borderRadius: 8,
+  border: "1px solid #e8e8e8",
+  backgroundColor: "#fff",
+};
 
-`;
+const iframeStyle: React.CSSProperties = {
+  width: "100%",
+  minHeight: 700,
+  border: "none",
+  display: "block",
+  borderRadius: 4,
+};
 
 export default function AlumnosExtraordinarios() {
   return (
@@ -19,44 +34,36 @@ export default function AlumnosExtraordinarios() {
       }}
     >
       <div style={{ margin: "-10px -10px 0 -10px" }}>
-        <div
-          style={{
-            padding: "16px 24px 24px",
-            width: "100%",
-            boxSizing: "border-box",
-            backgroundColor: "#ba9a3a",
-            color: "#032047",
-            clipPath:
-              "polygon(0 0, 50% 0, 100% calc(50% - 60px), calc(100% - 96px) 100%, 24px 100%, 0 calc(100% - 24px))",
-          }}
-        >
-          <Title
-            level={2}
-            style={{ margin: 0, color: "#032047", textAlign: "center" }}
-          >
-            HORARIOS EXTRAORDINARIOS
+        <CabeceraTitulo variante="dorado">
+          HORARIOS EXTRAORDINARIOS
+        </CabeceraTitulo>
+        <CabeceraTitulo variante="azul" style={{ width: "95%" }}>
+          SEMESTRE 2026 II
+        </CabeceraTitulo>
+      </div>
+
+      <div style={{ display: "flex", flexDirection: "column", marginTop: 16 }}>
+        <div style={bloquePdfStyle}>
+          <Title level={4} style={{ marginTop: 0, marginBottom: 16 }}>
+            Extra largo ICO
           </Title>
+          <iframe
+            title="PDF Extra largo ICO"
+            src={pdfExtraLargo}
+            style={iframeStyle}
+          />
         </div>
-        <div
-          style={{
-            padding: "16px 24px 24px",
-            width: "95%",
-            boxSizing: "border-box",
-            backgroundColor: "#032047",
-            color: "#ba9a3a",
-            clipPath:
-              "polygon(0 0, 50% 0, 100% calc(50% - 60px), calc(100% - 96px) 100%, 24px 100%, 0 calc(100% - 24px))",
-          }}
-        >
-          <Title
-            level={2}
-            style={{ margin: 0, color: "#ba9a3a", textAlign: "center" }}
-          >
-            SEMESTRE 2026 II
+        <div style={bloquePdfStyle}>
+          <Title level={4} style={{ marginTop: 0, marginBottom: 16 }}>
+            Extras primera vuelta
           </Title>
+          <iframe
+            title="PDF Extras primera vuelta"
+            src={pdfExtrasPrimera}
+            style={iframeStyle}
+          />
         </div>
       </div>
-      <Contenido html={html} sandbox="allow-same-origin allow-scripts" />
     </div>
   );
 }

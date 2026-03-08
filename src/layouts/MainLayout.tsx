@@ -219,12 +219,12 @@ export default function MainLayout() {
           }}
         >
           <div style={{ marginBottom: 8 }}>
-            <div style={{ fontWeight: 800 }}>Jefa de Carrera</div>
-            <div>Ing. Ana Claudia Reyes Cruz</div>
+            <div style={{ fontWeight: 800, fontFamily: '"poppins-bold", sans-serif' }}>Jefa de Carrera</div>
+            <div style={{ fontFamily: '"poppins-regular", sans-serif' }}>Ing. Ana Claudia Reyes Cruz</div>
           </div>
           <div>
-            <div style={{ fontWeight: 800 }}>Secretario Técnico</div>
-            <div>Ing. Roberto Agustín García Castrejón</div>
+            <div style={{ fontWeight: 800, fontFamily: '"poppins-bold", sans-serif' }}>Secretario Técnico</div>
+            <div style={{ fontFamily: '"poppins-regular", sans-serif' }}>Ing. Roberto Agustín García Castrejón</div>
           </div>
         </div>
         <div

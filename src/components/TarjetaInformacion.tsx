@@ -29,6 +29,7 @@ const textoDescripcionStyle: React.CSSProperties = {
   textAlign: "justify",
   whiteSpace: "pre-line",
   wordBreak: "break-word",
+  fontFamily: '"poppins-regular", sans-serif',
 };
 
 export default function TarjetaInformacion({
@@ -80,7 +81,7 @@ export default function TarjetaInformacion({
       <div
         className="icono-tarjeta-informacion"
         style={{
-          maxWidth: "50%",
+          maxWidth: "70%",
           maxHeight: "100%",
           width: "90%",
           aspectRatio: "1",
@@ -101,6 +102,7 @@ export default function TarjetaInformacion({
           fontWeight: 700,
           textAlign: "center",
           marginBottom: descripcion || descripcionColumnas ? 12 : 0,
+          fontFamily: '"poppins-bold", sans-serif',
         }}
       >
         {titulo}

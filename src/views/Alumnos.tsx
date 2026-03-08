@@ -22,14 +22,6 @@ export default function Alumnos() {
         </Col>
         <Col xs={24} sm={12} md={6}>
           <TarjetaIconoTitulo
-            icono={<img src={horarios} alt="Cupos" />}
-            titulo="CUPOS"
-            descripcion="Cupos disponibles para el semestre actual."
-            to="/alumnos/cupos"
-          />
-        </Col>
-        <Col xs={24} sm={12} md={6}>
-          <TarjetaIconoTitulo
             icono={<img src={calendario} alt="Calendario" />}
             titulo="CALENDARIO"
             descripcion="Calendario de actividades escolares del semestre actual."
@@ -42,6 +34,14 @@ export default function Alumnos() {
             titulo="EXTRAORDINARIOS"
             descripcion="Horarios de examenes extraordinarios del semestre actual."
             to="/alumnos/extraordinarios"
+          />
+        </Col>
+        <Col xs={24} sm={12} md={6}>
+          <TarjetaIconoTitulo
+            icono={<img src={laboratorio} alt="Redes" />}
+            titulo="REDES"
+            descripcion="Practicas de Redes de Computadoras."
+            to="/alumnos/redes"
           />
         </Col>
       </Row>
@@ -76,14 +76,6 @@ export default function Alumnos() {
             titulo="EVALUACIÓN A PROFESORES"
             descripcion="Acceso a la página de evaluación a profesores de la Universidad."
             href="https://ingenierias-aragon.net/ICO/evaluacionProfesores.php"
-          />
-        </Col>
-        <Col xs={24} sm={12} md={6}>
-          <TarjetaIconoTitulo
-            icono={<img src={laboratorio} alt="Extraordinarios" />}
-            titulo="REDES"
-            descripcion="Practicas de Redes de Computadoras."
-            to="/alumnos/redes"
           />
         </Col>
       </Row>
