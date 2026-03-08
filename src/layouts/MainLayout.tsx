@@ -113,7 +113,11 @@ export default function MainLayout() {
                 selectedKeys={[location.pathname]}
                 items={items}
                 onClick={({ key }) => handleItemClick(key)}
-                style={{ borderRight: "none", paddingTop: 8, background: "transparent" }}
+                style={{
+                  borderRight: "none",
+                  paddingTop: 8,
+                  background: "transparent",
+                }}
               />
             </Drawer>
           </>
