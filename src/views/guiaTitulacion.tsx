@@ -1,0 +1,835 @@
+import {
+  Button,
+  Checkbox,
+  Collapse,
+  Divider,
+  Progress,
+  Steps,
+  Typography,
+} from "antd";
+import { useMemo, useState } from "react";
+import CabeceraTitulo from "../components/CabeceraTitulo.tsx";
+import ModalRequisitoDetalles from "./titulacion/ModalRequisitoDetalles";
+
+type Requisito = {
+  id: string;
+  texto: string;
+};
+
+type GrupoRequisitos = {
+  id: string;
+  titulo: string;
+  /** Texto breve bajo el encabezado del grupo (dentro del panel del colapsable) */
+  descripcion?: string;
+  requisitos: Requisito[];
+};
+
+/** Etapas para la vista de diagrama de flujo (sin checkboxes) */
+type EtapaFlujo = {
+  titulo: string;
+  pasos: string[];
+};
+
+type Seccion = {
+  id: string;
+  titulo: string;
+  descripcion: string;
+  /** Lista plana cuando no hay `grupos` ni `etapasFlujo` */
+  requisitos: Requisito[];
+  /** Si existe, los requisitos se muestran agrupados en colapsables anidados */
+  grupos?: GrupoRequisitos[];
+  /** Si existe, se muestra un diagrama de flujo por etapas en lugar de requisitos */
+  etapasFlujo?: EtapaFlujo[];
+};
+
+function requisitosDeSeccion(seccion: Seccion): Requisito[] {
+  if (seccion.etapasFlujo && seccion.etapasFlujo.length > 0) {
+    return [];
+  }
+  if (seccion.grupos && seccion.grupos.length > 0) {
+    return seccion.grupos.flatMap((g) => g.requisitos);
+  }
+  return seccion.requisitos;
+}
+
+function renderFlujoDiagrama(etapas: EtapaFlujo[]) {
+  return (
+    <div
+      style={{
+        marginTop: 8,
+        padding: "12px 8px 8px",
+        background: "rgba(0, 47, 108, 0.04)",
+        borderRadius: 8,
+        border: "1px solid rgba(0, 47, 108, 0.12)",
+      }}
+    >
+      <Steps
+        orientation="vertical"
+        size="small"
+        current={-1}
+        items={etapas.map((etapa) => ({
+          title: (
+            <span
+              style={{
+                fontFamily: '"poppins-semibold", sans-serif',
+                color: "#001529",
+                fontSize: 15,
+              }}
+            >
+              {etapa.titulo}
+            </span>
+          ),
+          description: (
+            <ul
+              style={{
+                margin: "8px 0 0",
+                paddingLeft: 18,
+                fontFamily: '"poppins-regular", sans-serif',
+                color: "rgba(0, 21, 41, 0.92)",
+                fontSize: 14,
+              }}
+            >
+              {etapa.pasos.map((p) => (
+                <li key={`${etapa.titulo}-${p}`} style={{ marginBottom: 6 }}>
+                  {p}
+                </li>
+              ))}
+            </ul>
+          ),
+        }))}
+      />
+    </div>
+  );
+}
+
+// Placeholder: cuando me compartas la estructura general de tu documento,
+// reemplazamos este arreglo por las secciones y requisitos reales.
+const SECCIONES: Seccion[] = [
+  {
+    id: "requisitos-minimos",
+    titulo: "Requisitos mínimos para iniciar titulación",
+    descripcion:
+      "Estos requisitos aplican prácticamente para todas las modalidades. Antes de elegir una modalidad, asegúrate de tener base obligatoria y documentos comunes listos para continuar con el proceso.",
+    requisitos: [
+      {
+        id: "requisitos-minimos-r1",
+        texto: "Historial académico con 100% de créditos",
+      },
+      {
+        id: "requisitos-minimos-r3",
+        texto: "Carta de liberación de servicio social",
+      },
+      {
+        id: "requisitos-minimos-r4",
+        texto: "Constancia de idioma (planes 1279 y 2119)",
+      },
+      {
+        id: "requisitos-minimos-r5",
+        texto: "Constancia de horas de formación complementaria (480 hrs)",
+      },
+      {
+        id: "requisitos-minimos-r8",
+        texto: "Certificado de estudios",
+      },
+    ],
+  },
+  {
+    id: "modalidad-a",
+    titulo: "Modalidad: Con trabajo escrito con réplica oral",
+    descripcion:
+      "Modalidad en la que presentas un trabajo escrito y realizas una réplica oral ante jurado. Incluye componentes de tesis/tesina y una actividad de investigación.",
+    requisitos: [],
+    grupos: [
+      {
+        id: "modalidad-a-g-tesis",
+        titulo: "Tesis / Tesina",
+        descripcion:
+          "Trabajo escrito de investigación y su defensa oral ante jurado, según las etapas que marca tu plan de estudios.",
+        requisitos: [
+          {
+            id: "modalidad-a-r1",
+            texto: "Asesor asignado",
+          },
+          {
+            id: "modalidad-a-r2",
+            texto: "Trabajo de investigación",
+          },
+          {
+            id: "modalidad-a-r3",
+            texto: "Resumen firmado",
+          },
+          {
+            id: "modalidad-a-r4",
+            texto: "Defensa oral",
+          },
+        ],
+      },
+      {
+        id: "modalidad-a-g-investigacion",
+        titulo: "Actividad de investigación",
+        descripcion:
+          "Participación en un proyecto de investigación y presentación de resultados ante jurado.",
+        requisitos: [
+          {
+            id: "modalidad-a-r5",
+            texto: "Participación en proyecto (mín. 1 semestre)",
+          },
+          {
+            id: "modalidad-a-r6",
+            texto: "Trabajo derivado",
+          },
+          {
+            id: "modalidad-a-r7",
+            texto: "Presentación ante jurado",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    id: "modalidad-b",
+    titulo: "Modalidad: Con trabajo escrito sin réplica oral",
+    descripcion:
+      "Modalidad con trabajo escrito, pero sin réplica oral. Se enfoca en experiencia o actividades profesionales/docentes, complementado con servicio social y un artículo académico.",
+    requisitos: [],
+    grupos: [
+      {
+        id: "modalidad-b-g-docencia",
+        titulo: "Apoyo a la docencia",
+        descripcion:
+          "Apoyo a la docencia en la facultad: elaboración de material y acompañamiento con asesor docente.",
+        requisitos: [
+          {
+            id: "modalidad-b-r1",
+            texto: "Crear material didáctico",
+          },
+          {
+            id: "modalidad-b-r2",
+            texto: "Asesor docente",
+          },
+        ],
+      },
+      {
+        id: "modalidad-b-g-profesional",
+        titulo: "Trabajo profesional",
+        descripcion:
+          "Experiencia laboral acreditable y documentación del trabajo realizado en el ámbito profesional.",
+        requisitos: [
+          {
+            id: "modalidad-b-r3",
+            texto: "2 años de experiencia laboral",
+          },
+          {
+            id: "modalidad-b-r4",
+            texto: "Informe del trabajo realizado",
+          },
+        ],
+      },
+      {
+        id: "modalidad-b-g-ss",
+        titulo: "Servicio social",
+        descripcion:
+          "Cumplimiento del servicio social y entrega de la documentación que exige esta modalidad.",
+        requisitos: [
+          {
+            id: "modalidad-b-r5",
+            texto: "Haber cumplido 100% créditos",
+          },
+          {
+            id: "modalidad-b-r6",
+            texto: "Constancia de acreditación de idioma inglés",
+          },
+          {
+            id: "modalidad-b-r7",
+            texto: "Horas complementarias",
+          },
+          {
+            id: "modalidad-b-r8",
+            texto: "Informe de actividades",
+          },
+          {
+            id: "modalidad-b-r9",
+            texto: "Carta de término y liberación de servicio social",
+          },
+        ],
+      },
+      {
+        id: "modalidad-b-g-articulo",
+        titulo: "Artículo académico",
+        descripcion:
+          "Publicación en revista indexada y constancia de autoría o coautoría del artículo.",
+        requisitos: [
+          {
+            id: "modalidad-b-r10",
+            texto: "Publicación en revista indexada",
+          },
+          {
+            id: "modalidad-b-r11",
+            texto: "Autor o coautor",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    id: "modalidad-c",
+    titulo: "Modalidad: Sin trabajo escrito",
+    descripcion:
+      "Modalidad donde no se desarrolla un trabajo escrito. Se cubren requisitos base y se realiza un examen general (CENEVAL/EGEL) y condiciones de desempeño, con posibilidad de posgrado, ampliación y/o diplomado.",
+    requisitos: [],
+    grupos: [
+      {
+        id: "modalidad-c-g-ceneval",
+        titulo: "Examen general (CENEVAL)",
+        descripcion:
+          "Requisitos del examen general de egreso (EGEL/CENEVAL) y testimonios de desempeño.",
+        requisitos: [
+          {
+            id: "modalidad-c-r2",
+            texto: "Aprobar EGEL",
+          },
+          {
+            id: "modalidad-c-r3",
+            texto: "Testimonio de desempeño",
+          },
+        ],
+      },
+      {
+        id: "modalidad-c-g-alto",
+        titulo: "Alto nivel académico",
+        descripcion:
+          "Criterios de excelencia académica: promedio, historial sin reprobadas y conclusión en tiempo curricular.",
+        requisitos: [
+          {
+            id: "modalidad-c-r4",
+            texto: "Promedio ≥ 9.5",
+          },
+          {
+            id: "modalidad-c-r5",
+            texto: "Sin materias reprobadas",
+          },
+          {
+            id: "modalidad-c-r6",
+            texto: "Terminar en tiempo curricular",
+          },
+        ],
+      },
+      {
+        id: "modalidad-c-g-posgrado",
+        titulo: "Estudios de posgrado",
+        descripcion:
+          "Ingreso y permanencia en programas de posgrado reconocidos y autorizados.",
+        requisitos: [
+          {
+            id: "modalidad-c-r7",
+            texto: "Ingreso a posgrado válido",
+          },
+          {
+            id: "modalidad-c-r8",
+            texto: "Solo programas autorizados",
+          },
+        ],
+      },
+      {
+        id: "modalidad-c-g-ampliacion",
+        titulo: "Ampliación y profundización",
+        descripcion:
+          "Cursos adicionales para ampliar y profundizar competencias, con promedio mínimo requerido.",
+        requisitos: [
+          {
+            id: "modalidad-c-r9",
+            texto: "Cursar materias extra (~10% créditos)",
+          },
+          {
+            id: "modalidad-c-r10",
+            texto: "Promedio mínimo 9",
+          },
+        ],
+      },
+      {
+        id: "modalidad-c-g-diplomado",
+        titulo: "Diplomado",
+        descripcion:
+          "Diplomado con carga horaria, calificación mínima y validación por comité correspondiente.",
+        requisitos: [
+          { id: "modalidad-c-r11", texto: "Mínimo 240 horas" },
+          { id: "modalidad-c-r12", texto: "Promedio mínimo 8" },
+          {
+            id: "modalidad-c-r13",
+            texto: "Debe estar aprobado por comité",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    id: "flujo",
+    titulo: "Flujo completo del proceso de titulación",
+    descripcion:
+      "Flujo en etapas: preparación, pre-registro, procesos en paralelo, desarrollo según modalidad, validación ante instancias correspondientes y cierre final del trámite.",
+    requisitos: [],
+    etapasFlujo: [
+      {
+        titulo: "ETAPA 1",
+        pasos: [
+          "Terminar créditos (SIAE)",
+          "Liberar servicio social",
+          "Constancia de idioma",
+          "Horas complementarias",
+          "Definir modalidad (según objetivos personales)",
+        ],
+      },
+      {
+        titulo: "ETAPA 2",
+        pasos: [
+          "Elegir modalidad",
+          "Reunir documentos en PDF",
+          "Enviar a jefatura / registro",
+        ],
+      },
+      {
+        titulo: "ETAPA 3",
+        pasos: [
+          "Iniciar revisión de estudios",
+          "Tramitar certificado de estudios",
+          "(Si aplica) iniciar diplomado / tesis / examen",
+        ],
+      },
+      {
+        titulo: "ETAPA 4",
+        pasos: [
+          "Tesis → desarrollar + asesor",
+          "Servicio social → realizar + documentar",
+          "Diplomado → cursar",
+          "Examen → presentar",
+        ],
+      },
+      {
+        titulo: "ETAPA 5",
+        pasos: [
+          "Entregar documentos completos",
+          "Revisión por jefatura",
+          "Validación en servicios escolares",
+        ],
+      },
+      {
+        titulo: "ETAPA 6",
+        pasos: [
+          "Registro de titulación",
+          "Protesta universitaria",
+          "Expedición de título",
+        ],
+      },
+    ],
+  },
+];
+
+const IDS_MODALIDAD = new Set([
+  "modalidad-a",
+  "modalidad-b",
+  "modalidad-c",
+]);
+
+const SECCIONES_MODALIDAD = SECCIONES.filter((s) => IDS_MODALIDAD.has(s.id));
+const SECCION_FLUJO = SECCIONES.find((s) => s.id === "flujo");
+
+const { Paragraph } = Typography;
+
+export default function GuiaTitulacion() {
+  const [checkedMap, setCheckedMap] = useState<Record<string, boolean>>({});
+  const [modalidadSeleccionadaId, setModalidadSeleccionadaId] = useState<
+    string | null
+  >(null);
+  const [modalOpen, setModalOpen] = useState(false);
+  const [requisitoSeleccionado, setRequisitoSeleccionado] =
+    useState<Requisito | null>(null);
+
+  const porcentajeGeneral = useMemo(() => {
+    const requisitosMinimos = SECCIONES[0]?.requisitos ?? [];
+    const seccionModalidad =
+      modalidadSeleccionadaId &&
+      SECCIONES_MODALIDAD.find((s) => s.id === modalidadSeleccionadaId);
+    const requisitosModalidad = seccionModalidad
+      ? requisitosDeSeccion(seccionModalidad)
+      : [];
+
+    const todos = [...requisitosMinimos, ...requisitosModalidad];
+    const total = todos.length;
+    if (total === 0) return 0;
+    const completados = todos.reduce(
+      (acc, r) => acc + (checkedMap[r.id] ? 1 : 0),
+      0,
+    );
+    return Math.round((completados / total) * 100);
+  }, [checkedMap, modalidadSeleccionadaId]);
+
+  const toggleRequisito = (id: string, value: boolean) => {
+    setCheckedMap((prev) => ({ ...prev, [id]: value }));
+  };
+
+  const abrirModalDetalles = (requisito: Requisito) => {
+    setRequisitoSeleccionado(requisito);
+    setModalOpen(true);
+  };
+
+  const seccionRequisitosMinimos = SECCIONES[0];
+
+  const cambiarModalidadSeleccionada = (id: string, marcado: boolean) => {
+    setModalidadSeleccionadaId((prev) => {
+      if (marcado) return id;
+      return prev === id ? null : prev;
+    });
+  };
+
+  const renderRequisitosLista = (lista: Requisito[]) =>
+    lista.map((req, index) => (
+      <div key={req.id}>
+        {index > 0 ? (
+          <Divider
+            dashed
+            style={{
+              margin: "10px 0 14px",
+              borderColor: "rgba(0, 47, 108, 0.18)",
+            }}
+          />
+        ) : null}
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            gap: 4,
+            paddingLeft: 4,
+          }}
+        >
+          <Checkbox
+            checked={!!checkedMap[req.id]}
+            onChange={(e) => toggleRequisito(req.id, e.target.checked)}
+            style={{
+              fontFamily: '"poppins-regular", sans-serif',
+            }}
+          >
+            <span style={{ fontFamily: '"poppins-regular", sans-serif' }}>
+              {req.texto}
+            </span>
+          </Checkbox>
+          <Button
+            type="link"
+            onClick={() => abrirModalDetalles(req)}
+            style={{
+              padding: 0,
+              alignSelf: "flex-start",
+              fontFamily: '"poppins-regular", sans-serif',
+              color: "#072340",
+            }}
+          >
+            Detalles
+          </Button>
+        </div>
+      </div>
+    ));
+
+  const construirItemsCollapse = (secciones: Seccion[]) =>
+    secciones.map((seccion) => {
+      const listaReq = requisitosDeSeccion(seccion);
+      const total = listaReq.length;
+      const completados = listaReq.reduce(
+        (acc, r) => acc + (checkedMap[r.id] ? 1 : 0),
+        0,
+      );
+      const porcentaje =
+        total === 0 ? 0 : Math.round((completados / total) * 100);
+      const esFlujoInformativo = Boolean(
+        seccion.etapasFlujo && seccion.etapasFlujo.length > 0,
+      );
+
+      return {
+        key: seccion.id,
+        label: (
+          <div
+            style={{
+              width: "100%",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+              gap: 12,
+            }}
+          >
+            <span
+              style={{
+                fontFamily: '"poppins-semibold", sans-serif',
+                color: "#001529",
+              }}
+            >
+              {seccion.titulo}
+            </span>
+            <span
+              style={{
+                fontFamily: '"poppins-semibold", sans-serif',
+                color: "#ba9a3a",
+                whiteSpace: "nowrap",
+              }}
+            >
+              {esFlujoInformativo
+                ? "Diagrama de flujo"
+                : `${porcentaje}% (${completados}/${total})`}
+            </span>
+          </div>
+        ),
+        children: (
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              gap: 10,
+            }}
+          >
+            <Paragraph
+              style={{
+                margin: 0,
+                fontFamily: '"poppins-regular", sans-serif',
+                textAlign: "justify",
+              }}
+            >
+              {seccion.descripcion}
+            </Paragraph>
+            {esFlujoInformativo && seccion.etapasFlujo ? (
+              renderFlujoDiagrama(seccion.etapasFlujo)
+            ) : null}
+            {!esFlujoInformativo &&
+            seccion.grupos &&
+            seccion.grupos.length > 0 ? (
+              <Collapse
+                bordered={false}
+                defaultActiveKey={seccion.grupos.map((g) => g.id)}
+                style={{ marginTop: 4 }}
+                items={seccion.grupos.map((grupo) => {
+                  const totalG = grupo.requisitos.length;
+                  const completadosG = grupo.requisitos.reduce(
+                    (acc, r) => acc + (checkedMap[r.id] ? 1 : 0),
+                    0,
+                  );
+                  const porcentajeG =
+                    totalG === 0
+                      ? 0
+                      : Math.round((completadosG / totalG) * 100);
+                  return {
+                    key: grupo.id,
+                    label: (
+                      <div
+                        style={{
+                          width: "100%",
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "space-between",
+                          gap: 12,
+                        }}
+                      >
+                        <span
+                          style={{
+                            fontFamily: '"poppins-semibold", sans-serif',
+                            color: "#001529",
+                          }}
+                        >
+                          {grupo.titulo}
+                        </span>
+                        <span
+                          style={{
+                            fontFamily: '"poppins-semibold", sans-serif',
+                            color: "#ba9a3a",
+                            whiteSpace: "nowrap",
+                          }}
+                        >
+                          {porcentajeG}% ({completadosG}/{totalG})
+                        </span>
+                      </div>
+                    ),
+                    children: (
+                      <div style={{ paddingBottom: 4 }}>
+                        {grupo.descripcion?.trim() ? (
+                          <Paragraph
+                            style={{
+                              margin: "0 0 12px",
+                              fontFamily: '"poppins-regular", sans-serif',
+                              textAlign: "justify",
+                              color: "rgba(0, 21, 41, 0.88)",
+                              fontSize: 13,
+                              lineHeight: 1.45,
+                            }}
+                          >
+                            {grupo.descripcion}
+                          </Paragraph>
+                        ) : null}
+                        {renderRequisitosLista(grupo.requisitos)}
+                      </div>
+                    ),
+                  };
+                })}
+              />
+            ) : null}
+            {!esFlujoInformativo &&
+            (!seccion.grupos || seccion.grupos.length === 0) ? (
+              renderRequisitosLista(seccion.requisitos)
+            ) : null}
+          </div>
+        ),
+      };
+    });
+
+  return (
+    <div
+      style={{
+        padding: 10,
+        display: "flex",
+        flexDirection: "column",
+        gap: 10,
+      }}
+    >
+      <div style={{ margin: "-10px -10px 0 -10px" }}>
+        <CabeceraTitulo variante="dorado">GUÍA DE</CabeceraTitulo>
+        <CabeceraTitulo variante="azul" style={{ width: "95%" }}>
+          TITULACIÓN
+        </CabeceraTitulo>
+      </div>
+
+      <div
+        style={{
+          position: "sticky",
+          top: 0,
+          zIndex: 20,
+          background: "rgba(3, 32, 71, 0.98)",
+          borderBottom: "1px solid rgba(186, 154, 58, 0.35)",
+          padding: "12px 14px",
+          borderRadius: 8,
+        }}
+      >
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "baseline",
+            gap: 12,
+            marginBottom: 6,
+          }}
+        >
+          <div
+            style={{
+              color: "#ba9a3a",
+              fontFamily: '"poppins-semibold", sans-serif',
+            }}
+          >
+            Progreso general
+          </div>
+          <div
+            style={{
+              color: "#fff",
+              fontFamily: '"poppins-regular", sans-serif',
+              fontSize: 13,
+              whiteSpace: "nowrap",
+            }}
+          >
+            {porcentajeGeneral}%
+          </div>
+        </div>
+        <Progress
+          percent={porcentajeGeneral}
+          showInfo={false}
+          strokeColor="#ba9a3a"
+        />
+      </div>
+
+      <Paragraph
+        style={{
+          margin: 0,
+          fontFamily: '"poppins-regular", sans-serif',
+          textAlign: "justify",
+        }}
+      >
+        Marca con check los requisitos que ya tienes. El porcentaje por sección
+        y el progreso general se actualizan automáticamente.
+      </Paragraph>
+
+      <Collapse
+        bordered={false}
+        defaultActiveKey={
+          seccionRequisitosMinimos ? [seccionRequisitosMinimos.id] : []
+        }
+        items={construirItemsCollapse(
+          seccionRequisitosMinimos ? [seccionRequisitosMinimos] : [],
+        )}
+      />
+
+      <Paragraph
+        style={{
+          margin: "4px 0 0",
+          fontFamily: '"poppins-semibold", sans-serif',
+          color: "#001529",
+          textAlign: "center",
+        }}
+      >
+        ¿Qué modalidad de titulación vas a desarrollar?
+      </Paragraph>
+
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          gap: 8,
+          alignItems: "flex-start",
+          paddingLeft: 4,
+        }}
+      >
+        {SECCIONES_MODALIDAD.map((seccion) => (
+          <Checkbox
+            key={seccion.id}
+            checked={modalidadSeleccionadaId === seccion.id}
+            onChange={(e) =>
+              cambiarModalidadSeleccionada(seccion.id, e.target.checked)
+            }
+            style={{ fontFamily: '"poppins-regular", sans-serif' }}
+          >
+            <span style={{ fontFamily: '"poppins-regular", sans-serif' }}>
+              {seccion.titulo.replace(/^Modalidad:\s*/, "")}
+            </span>
+          </Checkbox>
+        ))}
+      </div>
+
+      {modalidadSeleccionadaId ? (
+        <Collapse
+          key={modalidadSeleccionadaId}
+          bordered={false}
+          defaultActiveKey={[modalidadSeleccionadaId]}
+          items={construirItemsCollapse(
+            SECCIONES_MODALIDAD.filter((s) => s.id === modalidadSeleccionadaId),
+          )}
+        />
+      ) : (
+        <Paragraph
+          style={{
+            margin: 0,
+            fontFamily: '"poppins-regular", sans-serif',
+            color: "rgba(0, 21, 41, 0.55)",
+            fontSize: 13,
+            textAlign: "center",
+          }}
+        >
+          Marca una opción para ver los requisitos de esa modalidad.
+        </Paragraph>
+      )}
+
+      {SECCION_FLUJO ? (
+        <Collapse
+          bordered={false}
+          items={construirItemsCollapse([SECCION_FLUJO])}
+        />
+      ) : null}
+
+      <ModalRequisitoDetalles
+        open={modalOpen}
+        onClose={() => setModalOpen(false)}
+        requisitoId={requisitoSeleccionado?.id ?? null}
+        requisitoTexto={requisitoSeleccionado?.texto ?? null}
+      />
+    </div>
+  );
+}

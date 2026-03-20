@@ -20,6 +20,7 @@ const items = [
   { key: "/informacion", label: "Información" },
   { key: "/alumnos", label: "Alumnos" },
   { key: "/plan-estudios", label: "Plan de estudios" },
+  { key: "/guia-titulacion", label: "Guía de titulación" },
   { key: "/profesores", label: "Profesores" },
   { key: "/egresados", label: "Egresados" },
   { key: "/ligas-interes", label: "Ligas de interés" },
