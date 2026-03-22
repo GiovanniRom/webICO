@@ -1,3 +1,4 @@
+import type { ReactNode } from "react";
 import historialAcademicoT11 from "../../assets/images/documentos/historialAcademicoT11.png";
 import cartaterminossfes from "../../assets/images/documentos/cartaterminossfes.png";
 import constanciaidioma from "../../assets/images/documentos/constanciaidioma.png";
@@ -6,7 +7,7 @@ import certificadoestudios from "../../assets/images/documentos/certificadoestud
 
 export type DetalleRequisito = {
   id: string;
-  descripcion: string;
+  descripcion: ReactNode;
   imagen?: string;
 };
 
@@ -42,9 +43,24 @@ export const DETALLES_REQUISITOS: DetalleRequisito[] = [
   },
   {
     id: "requisitos-minimos-r8",
-    descripcion:
-      "El certificado de estudios se solicita durante la etapa inicial del proceso de titulación, de manera paralela al registro de modalidad y a la revisión de estudios. " +
-      "Para obtenerlo es necesario llevar tu historial académico con estatus de término 11 y 4 fotografías tamaño credencial ovaladas (3,5 × 5 cm) a servicios escolares.",
+    descripcion: (
+      <>
+        El certificado de estudios se solicita durante la etapa inicial del
+        proceso de titulación, de manera paralela al registro de modalidad y a la
+        revisión de estudios. Para obtenerlo es necesario llevar tu historial
+        académico con estatus de término 11 y 4 fotografías tamaño credencial
+        ovaladas (3,5 × 5 cm) a servicios escolares.
+        {"\n\n"}
+        <a
+          href="https://www.dgae.unam.mx/tramites/fotos.html"
+          target="_blank"
+          rel="noopener noreferrer"
+          style={{ color: "#072340", textDecoration: "underline" }}
+        >
+          Características de fotos
+        </a>
+      </>
+    ),
     imagen: certificadoestudios,
   },
   {
