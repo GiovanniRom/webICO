@@ -1,4 +1,8 @@
 import historialAcademicoT11 from "../../assets/images/documentos/historialAcademicoT11.png";
+import cartaterminossfes from "../../assets/images/documentos/cartaterminossfes.png";
+import constanciaidioma from "../../assets/images/documentos/constanciaidioma.png";
+import constanciahoras from "../../assets/images/documentos/constanciahoras.png";
+import certificadoestudios from "../../assets/images/documentos/certificadoestudios.png";
 
 export type DetalleRequisito = {
   id: string;
@@ -21,22 +25,27 @@ export const DETALLES_REQUISITOS: DetalleRequisito[] = [
       "Para obtenerlo es necesario que primero registres donde quieres realizar tu servicio social en el sistema de registro de servicio social de la UNAM 'https://siassypp.unam.mx/' " +
       "o te acerques a la jefatura de carrera para que te asesoren sobre vacantes de servicio social internas. " +
       "Recuerda que como requisito indispensable debes contar con al menos 70% de créditos totales cursados, no olvides llevar tu historial académico actualizado.",
+    imagen: cartaterminossfes,
   },
   {
     id: "requisitos-minimos-r4",
     descripcion:
-      "Es el documento oficial que acredita que tienes comprensión de lectura en inglés (nivel B1). Puedes obtenerlo del centro de lenguas FES Aragón.",
+      "Es el documento oficial que acredita que tienes comprensión de lectura en inglés (nivel B1). Puedes obtenerlo del centro de lenguas FES Aragón.\n\n" +
+      "Si la constancia es digital, es necesario imprimirla en papel opalina a color.",
+    imagen: constanciaidioma,
   },
   {
     id: "requisitos-minimos-r5",
     descripcion:
       "La constancia de horas de formación complementaria es un documento oficial que acredita que el egresado ha cumplido con el número de horas requeridas en actividades extracurriculares establecidas por el plan de estudios. Este documento lo puedes obtener en la jefatura de carrera.",
+    imagen: constanciahoras,
   },
   {
     id: "requisitos-minimos-r8",
     descripcion:
       "El certificado de estudios se solicita durante la etapa inicial del proceso de titulación, de manera paralela al registro de modalidad y a la revisión de estudios. " +
-      "Para obtenerlo es necesario llevar tu historial académico con estatus de término 11 y dos fotografías a servicios escolares.",
+      "Para obtenerlo es necesario llevar tu historial académico con estatus de término 11 y 4 fotografías tamaño credencial ovaladas (3,5 × 5 cm) a servicios escolares.",
+    imagen: certificadoestudios,
   },
   {
     id: "modalidad-a-r1",
@@ -167,12 +176,15 @@ export const DETALLES_REQUISITOS: DetalleRequisito[] = [
   {
     id: "modalidad-b-r6",
     descripcion:
-      "Es el documento oficial que acredita que tienes comprensión de lectura en inglés (nivel B1). Puedes obtenerlo del centro de lenguas FES Aragón.",
+      "Es el documento oficial que acredita que tienes comprensión de lectura en inglés (nivel B1). Puedes obtenerlo del centro de lenguas FES Aragón.\n\n" +
+      "Si la constancia es digital, es necesario imprimirla en papel opalina a color.",
+    imagen: constanciaidioma,
   },
   {
     id: "modalidad-b-r7",
     descripcion:
       "La constancia de horas de formación complementaria es un documento oficial que acredita que el egresado ha cumplido con el número de horas requeridas en actividades extracurriculares establecidas por el plan de estudios. Este documento lo puedes obtener en la jefatura de carrera.",
+    imagen: constanciahoras,
   },
   {
     id: "modalidad-b-r8",

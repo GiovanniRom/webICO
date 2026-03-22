@@ -343,7 +343,8 @@ const SECCIONES: Seccion[] = [
           },
           {
             id: "modalidad-c-r8",
-            texto: "Comprobante de acreditación satisfactoria del primer semestre",
+            texto:
+              "Comprobante de acreditación satisfactoria del primer semestre",
           },
         ],
       },
@@ -401,8 +402,8 @@ const SECCIONES: Seccion[] = [
         titulo: "ETAPA 2",
         pasos: [
           "Elegir modalidad",
-          "Reunir documentos en PDF",
-          "Enviar a jefatura / registro",
+          "Reunir documentos en un unico archivo PDF",
+          "Enviar PDF identificado con nombre y numero de cuenta por correo a titulacion.computacion@aragon.unam.mx",
         ],
       },
       {
@@ -989,6 +990,17 @@ export default function GuiaTitulacion() {
       >
         Marca con check los requisitos que ya tienes. El porcentaje por sección
         y el progreso general se actualizan automáticamente.
+      </Paragraph>
+      <Paragraph
+        style={{
+          margin: 0,
+          fontFamily: '"poppins-regular", sans-serif',
+          textAlign: "justify",
+        }}
+      >
+        Nota: todo documento que sea requisito para una modalidad y sea emitido
+        de forma digital deberá imprimirse en papel opalina a color con
+        excelente calidad.
       </Paragraph>
 
       <Collapse
