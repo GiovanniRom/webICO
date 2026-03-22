@@ -7,7 +7,7 @@ import {
   Steps,
   Typography,
 } from "antd";
-import { useMemo, useState } from "react";
+import { useMemo, useState, type ReactNode } from "react";
 import CabeceraTitulo from "../components/CabeceraTitulo.tsx";
 import ModalRequisitoDetalles from "./titulacion/ModalRequisitoDetalles";
 
@@ -48,6 +48,23 @@ function requisitosDeSeccion(seccion: Seccion): Requisito[] {
   }
   if (seccion.grupos && seccion.grupos.length > 0) {
     return seccion.grupos.flatMap((g) => g.requisitos);
+  }
+  return seccion.requisitos;
+}
+
+/** Requisitos de modalidad que cuentan para el progreso (solo el subgrupo elegido). */
+function requisitosModalidadParaProgreso(
+  seccion: Seccion | undefined,
+  alternativaGrupoId: string | null,
+): Requisito[] {
+  if (!seccion) return [];
+  if (seccion.etapasFlujo && seccion.etapasFlujo.length > 0) {
+    return [];
+  }
+  if (seccion.grupos && seccion.grupos.length > 0) {
+    if (!alternativaGrupoId) return [];
+    const grupo = seccion.grupos.find((g) => g.id === alternativaGrupoId);
+    return grupo?.requisitos ?? [];
   }
   return seccion.requisitos;
 }
@@ -437,6 +454,9 @@ export default function GuiaTitulacion() {
   const [modalidadSeleccionadaId, setModalidadSeleccionadaId] = useState<
     string | null
   >(null);
+  const [alternativaGrupoId, setAlternativaGrupoId] = useState<string | null>(
+    null,
+  );
   const [modalOpen, setModalOpen] = useState(false);
   const [requisitoSeleccionado, setRequisitoSeleccionado] =
     useState<Requisito | null>(null);
@@ -446,9 +466,10 @@ export default function GuiaTitulacion() {
     const seccionModalidad =
       modalidadSeleccionadaId &&
       SECCIONES_MODALIDAD.find((s) => s.id === modalidadSeleccionadaId);
-    const requisitosModalidad = seccionModalidad
-      ? requisitosDeSeccion(seccionModalidad)
-      : [];
+    const requisitosModalidad = requisitosModalidadParaProgreso(
+      seccionModalidad || undefined,
+      alternativaGrupoId,
+    );
 
     const todos = [...requisitosMinimos, ...requisitosModalidad];
     const total = todos.length;
@@ -458,7 +479,7 @@ export default function GuiaTitulacion() {
       0,
     );
     return Math.round((completados / total) * 100);
-  }, [checkedMap, modalidadSeleccionadaId]);
+  }, [checkedMap, modalidadSeleccionadaId, alternativaGrupoId]);
 
   const toggleRequisito = (id: string, value: boolean) => {
     setCheckedMap((prev) => ({ ...prev, [id]: value }));
@@ -472,11 +493,48 @@ export default function GuiaTitulacion() {
   const seccionRequisitosMinimos = SECCIONES[0];
 
   const cambiarModalidadSeleccionada = (id: string, marcado: boolean) => {
-    setModalidadSeleccionadaId((prev) => {
-      if (marcado) return id;
-      return prev === id ? null : prev;
+    if (marcado) {
+      setModalidadSeleccionadaId(id);
+      setAlternativaGrupoId(null);
+      return;
+    }
+    setModalidadSeleccionadaId((prev) => (prev === id ? null : prev));
+    setAlternativaGrupoId(null);
+  };
+
+  const cambiarAlternativaGrupo = (grupoId: string, marcado: boolean) => {
+    setAlternativaGrupoId((prev) => {
+      if (marcado) return grupoId;
+      return prev === grupoId ? null : prev;
     });
   };
+
+  const seccionModalidadActiva = useMemo(
+    () =>
+      modalidadSeleccionadaId
+        ? SECCIONES_MODALIDAD.find((s) => s.id === modalidadSeleccionadaId)
+        : undefined,
+    [modalidadSeleccionadaId],
+  );
+
+  const grupoAlternativaSeleccionado = useMemo(() => {
+    const sec = seccionModalidadActiva;
+    if (!sec?.grupos?.length || alternativaGrupoId == null) return null;
+    return sec.grupos.find((g) => g.id === alternativaGrupoId) ?? null;
+  }, [seccionModalidadActiva, alternativaGrupoId]);
+
+  const progresoGrupoAlternativa = useMemo(() => {
+    const g = grupoAlternativaSeleccionado;
+    if (!g) return { total: 0, completados: 0, porcentaje: 0 };
+    const total = g.requisitos.length;
+    const completados = g.requisitos.reduce(
+      (acc, r) => acc + (checkedMap[r.id] ? 1 : 0),
+      0,
+    );
+    const porcentaje =
+      total === 0 ? 0 : Math.round((completados / total) * 100);
+    return { total, completados, porcentaje };
+  }, [grupoAlternativaSeleccionado, checkedMap]);
 
   const renderRequisitosLista = (lista: Requisito[]) =>
     lista.map((req, index) => (
@@ -672,6 +730,175 @@ export default function GuiaTitulacion() {
       };
     });
 
+  let contenidoModalidadSeleccionada: ReactNode;
+  if (!modalidadSeleccionadaId) {
+    contenidoModalidadSeleccionada = (
+      <Paragraph
+        style={{
+          margin: 0,
+          fontFamily: '"poppins-regular", sans-serif',
+          color: "rgba(0, 21, 41, 0.55)",
+          fontSize: 13,
+          textAlign: "center",
+        }}
+      >
+        Marca una opción para ver los requisitos de esa modalidad.
+      </Paragraph>
+    );
+  } else if (
+    seccionModalidadActiva?.grupos &&
+    seccionModalidadActiva.grupos.length > 0
+  ) {
+    const sec = seccionModalidadActiva;
+    contenidoModalidadSeleccionada = (
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          gap: 12,
+        }}
+      >
+        <Paragraph
+          style={{
+            margin: 0,
+            fontFamily: '"poppins-regular", sans-serif',
+            textAlign: "justify",
+          }}
+        >
+          {sec.descripcion}
+        </Paragraph>
+        <Paragraph
+          style={{
+            margin: 0,
+            fontFamily: '"poppins-semibold", sans-serif',
+            color: "#001529",
+            textAlign: "center",
+          }}
+        >
+          ¿Qué alternativa de esta modalidad vas a seguir?
+        </Paragraph>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            gap: 8,
+            alignItems: "flex-start",
+            paddingLeft: 4,
+          }}
+        >
+          {(sec.grupos ?? []).map((grupo) => (
+            <Checkbox
+              key={grupo.id}
+              checked={alternativaGrupoId === grupo.id}
+              onChange={(e) =>
+                cambiarAlternativaGrupo(grupo.id, e.target.checked)
+              }
+              style={{ fontFamily: '"poppins-regular", sans-serif' }}
+            >
+              <span style={{ fontFamily: '"poppins-regular", sans-serif' }}>
+                {grupo.titulo}
+              </span>
+            </Checkbox>
+          ))}
+        </div>
+        {grupoAlternativaSeleccionado ? (
+          <div
+            style={{
+              border: "1px solid rgba(0, 47, 108, 0.15)",
+              borderRadius: 8,
+              padding: "12px 14px",
+              background: "rgba(0, 47, 108, 0.03)",
+            }}
+          >
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "space-between",
+                gap: 12,
+                marginBottom: grupoAlternativaSeleccionado.descripcion?.trim()
+                  ? 10
+                  : 0,
+              }}
+            >
+              <span
+                style={{
+                  fontFamily: '"poppins-semibold", sans-serif',
+                  color: "#001529",
+                }}
+              >
+                {grupoAlternativaSeleccionado.titulo}
+              </span>
+              <span
+                style={{
+                  fontFamily: '"poppins-semibold", sans-serif',
+                  color: "#ba9a3a",
+                  whiteSpace: "nowrap",
+                  fontSize: 13,
+                }}
+              >
+                {progresoGrupoAlternativa.porcentaje}% (
+                {progresoGrupoAlternativa.completados}/
+                {progresoGrupoAlternativa.total})
+              </span>
+            </div>
+            {grupoAlternativaSeleccionado.descripcion?.trim() ? (
+              <Paragraph
+                style={{
+                  margin: "0 0 12px",
+                  fontFamily: '"poppins-regular", sans-serif',
+                  textAlign: "justify",
+                  color: "rgba(0, 21, 41, 0.88)",
+                  fontSize: 13,
+                  lineHeight: 1.45,
+                }}
+              >
+                {grupoAlternativaSeleccionado.descripcion}
+              </Paragraph>
+            ) : null}
+            {renderRequisitosLista(grupoAlternativaSeleccionado.requisitos)}
+          </div>
+        ) : (
+          <Paragraph
+            style={{
+              margin: 0,
+              fontFamily: '"poppins-regular", sans-serif',
+              color: "rgba(0, 21, 41, 0.55)",
+              fontSize: 13,
+              textAlign: "center",
+            }}
+          >
+            Marca una alternativa para ver sus requisitos. El progreso general
+            solo considerará los de la alternativa elegida.
+          </Paragraph>
+        )}
+      </div>
+    );
+  } else if (seccionModalidadActiva) {
+    contenidoModalidadSeleccionada = (
+      <Collapse
+        key={modalidadSeleccionadaId}
+        bordered={false}
+        defaultActiveKey={[seccionModalidadActiva.id]}
+        items={construirItemsCollapse([seccionModalidadActiva])}
+      />
+    );
+  } else {
+    contenidoModalidadSeleccionada = (
+      <Paragraph
+        style={{
+          margin: 0,
+          fontFamily: '"poppins-regular", sans-serif',
+          color: "rgba(0, 21, 41, 0.55)",
+          fontSize: 13,
+          textAlign: "center",
+        }}
+      >
+        No se encontró la modalidad seleccionada.
+      </Paragraph>
+    );
+  }
+
   return (
     <div
       style={{
@@ -810,28 +1037,7 @@ export default function GuiaTitulacion() {
         ))}
       </div>
 
-      {modalidadSeleccionadaId ? (
-        <Collapse
-          key={modalidadSeleccionadaId}
-          bordered={false}
-          defaultActiveKey={[modalidadSeleccionadaId]}
-          items={construirItemsCollapse(
-            SECCIONES_MODALIDAD.filter((s) => s.id === modalidadSeleccionadaId),
-          )}
-        />
-      ) : (
-        <Paragraph
-          style={{
-            margin: 0,
-            fontFamily: '"poppins-regular", sans-serif',
-            color: "rgba(0, 21, 41, 0.55)",
-            fontSize: 13,
-            textAlign: "center",
-          }}
-        >
-          Marca una opción para ver los requisitos de esa modalidad.
-        </Paragraph>
-      )}
+      {contenidoModalidadSeleccionada}
 
       {SECCION_FLUJO ? (
         <Collapse
