@@ -121,7 +121,7 @@ const SECCIONES: Seccion[] = [
       },
       {
         id: "requisitos-minimos-r4",
-        texto: "Constancia de idioma (planes 1279 y 2119)",
+        texto: "Constancia de idioma acreditando nivel B1",
       },
       {
         id: "requisitos-minimos-r5",
@@ -148,19 +148,19 @@ const SECCIONES: Seccion[] = [
         requisitos: [
           {
             id: "modalidad-a-r1",
-            texto: "Asesor asignado",
+            texto: "Selección de tutor aprobado por el comité académico",
           },
           {
             id: "modalidad-a-r2",
-            texto: "Trabajo de investigación",
+            texto: "Registro formal de proyecto ante jefatura",
           },
           {
             id: "modalidad-a-r3",
-            texto: "Resumen firmado",
+            texto: "Aprobación de borrador final por el tutor",
           },
           {
             id: "modalidad-a-r4",
-            texto: "Defensa oral",
+            texto: "Defensa oral ante jurado",
           },
         ],
       },
@@ -172,15 +172,15 @@ const SECCIONES: Seccion[] = [
         requisitos: [
           {
             id: "modalidad-a-r5",
-            texto: "Participación en proyecto (mín. 1 semestre)",
+            texto: "Participación certificada en proyecto (mín. 1 semestre)",
           },
           {
             id: "modalidad-a-r6",
-            texto: "Trabajo derivado",
+            texto: "Informe detallado de actividades y resultados",
           },
           {
             id: "modalidad-a-r7",
-            texto: "Presentación ante jurado",
+            texto: "Presentación y defensa de resultados",
           },
         ],
       },
@@ -205,7 +205,7 @@ const SECCIONES: Seccion[] = [
           },
           {
             id: "modalidad-b-r2",
-            texto: "Asesor docente",
+            texto: "Selección de asesor docente",
           },
         ],
       },
@@ -237,7 +237,7 @@ const SECCIONES: Seccion[] = [
           },
           {
             id: "modalidad-b-r6",
-            texto: "Constancia de acreditación de idioma inglés",
+            texto: "Constancia de acreditación de idioma inglés (nivel B1)",
           },
           {
             id: "modalidad-b-r7",
@@ -286,11 +286,11 @@ const SECCIONES: Seccion[] = [
         requisitos: [
           {
             id: "modalidad-c-r2",
-            texto: "Aprobar EGEL",
+            texto: "Comprobante aprobatorio emitido por EGEL",
           },
           {
             id: "modalidad-c-r3",
-            texto: "Testimonio de desempeño",
+            texto: "Constancia oficial de resultados",
           },
         ],
       },
@@ -326,7 +326,7 @@ const SECCIONES: Seccion[] = [
           },
           {
             id: "modalidad-c-r8",
-            texto: "Solo programas autorizados",
+            texto: "Comprobante de acreditación satisfactoria del primer semestre",
           },
         ],
       },
@@ -334,7 +334,8 @@ const SECCIONES: Seccion[] = [
         id: "modalidad-c-g-ampliacion",
         titulo: "Ampliación y profundización",
         descripcion:
-          "Cursos adicionales para ampliar y profundizar competencias, con promedio mínimo requerido.",
+          "Cursos adicionales para ampliar y profundizar competencias, con promedio mínimo requerido. " +
+          "Se cuenta con un período máximo de un año, contado a partir de haber terminado el 100% de los créditos, para inscribir esta modalidad de titulación.",
         requisitos: [
           {
             id: "modalidad-c-r9",
@@ -374,7 +375,7 @@ const SECCIONES: Seccion[] = [
         pasos: [
           "Terminar créditos (SIAE)",
           "Liberar servicio social",
-          "Constancia de idioma",
+          "Constancia de idioma acreditando nivel B1",
           "Horas complementarias",
           "Definir modalidad (según objetivos personales)",
         ],
@@ -424,11 +425,7 @@ const SECCIONES: Seccion[] = [
   },
 ];
 
-const IDS_MODALIDAD = new Set([
-  "modalidad-a",
-  "modalidad-b",
-  "modalidad-c",
-]);
+const IDS_MODALIDAD = new Set(["modalidad-a", "modalidad-b", "modalidad-c"]);
 
 const SECCIONES_MODALIDAD = SECCIONES.filter((s) => IDS_MODALIDAD.has(s.id));
 const SECCION_FLUJO = SECCIONES.find((s) => s.id === "flujo");
@@ -592,9 +589,9 @@ export default function GuiaTitulacion() {
             >
               {seccion.descripcion}
             </Paragraph>
-            {esFlujoInformativo && seccion.etapasFlujo ? (
-              renderFlujoDiagrama(seccion.etapasFlujo)
-            ) : null}
+            {esFlujoInformativo && seccion.etapasFlujo
+              ? renderFlujoDiagrama(seccion.etapasFlujo)
+              : null}
             {!esFlujoInformativo &&
             seccion.grupos &&
             seccion.grupos.length > 0 ? (
@@ -667,9 +664,9 @@ export default function GuiaTitulacion() {
               />
             ) : null}
             {!esFlujoInformativo &&
-            (!seccion.grupos || seccion.grupos.length === 0) ? (
-              renderRequisitosLista(seccion.requisitos)
-            ) : null}
+            (!seccion.grupos || seccion.grupos.length === 0)
+              ? renderRequisitosLista(seccion.requisitos)
+              : null}
           </div>
         ),
       };
@@ -690,6 +687,25 @@ export default function GuiaTitulacion() {
           TITULACIÓN
         </CabeceraTitulo>
       </div>
+
+      <Paragraph
+        style={{
+          margin: "0 0 10px 0",
+          fontFamily: '"poppins-regular", sans-serif',
+          textAlign: "justify",
+          color: "rgba(0, 0, 0, 0.75)",
+          width: "80%",
+          alignSelf: "center",
+          marginTop: 10,
+          marginBottom: 10,
+        }}
+      >
+        Esta sección muestra los requisitos para titulación que debes cumplir
+        para obtener tu título. Marca con check los requisitos que ya tienes. El
+        porcentaje por sección y el progreso general se actualizan
+        automáticamente. Si tienes alguna duda, revisa la sección de detalles de
+        cada requisito para obtener más información.
+      </Paragraph>
 
       <div
         style={{

@@ -1,8 +1,8 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Layout, Menu, Typography, Row, Col, Button, Drawer, Grid } from "antd";
 import { MenuOutlined } from "@ant-design/icons";
 import { useNavigate, useLocation, Outlet } from "react-router-dom";
-import logoUnam from "../assets/images/unam.png";
+import fesHeaderLogo from "../assets/images/fes.png";
 import logofes from "../assets/images/logofes.png";
 import logoico from "../assets/images/logoico.png";
 import background from "../assets/images/background.png";
@@ -14,6 +14,9 @@ import fb from "../assets/images/footer/facebooicon.png";
 const { Header, Content, Footer } = Layout;
 const { Text } = Typography;
 const { useBreakpoint } = Grid;
+
+/** Ancho mínimo del viewport para mostrar el menú horizontal (por debajo: hamburguesa). */
+const ANCHO_MIN_MENU_HORIZONTAL_PX = 1300;
 
 const items = [
   { key: "/", label: "Inicio" },
@@ -31,6 +34,20 @@ export default function MainLayout() {
   const location = useLocation();
   const screens = useBreakpoint();
   const [drawerAbierto, setDrawerAbierto] = useState(false);
+  const [usarMenuHamburguesa, setUsarMenuHamburguesa] = useState(() =>
+    globalThis.window === undefined
+      ? true
+      : globalThis.window.innerWidth < ANCHO_MIN_MENU_HORIZONTAL_PX
+  );
+
+  useEffect(() => {
+    const query = `(max-width: ${ANCHO_MIN_MENU_HORIZONTAL_PX - 1}px)`;
+    const mq = globalThis.matchMedia(query);
+    const sync = () => setUsarMenuHamburguesa(mq.matches);
+    sync();
+    mq.addEventListener("change", sync);
+    return () => mq.removeEventListener("change", sync);
+  }, []);
 
   const esPantallaPequena = !screens.md;
   const handleItemClick = (key: string) => {
@@ -39,7 +56,14 @@ export default function MainLayout() {
   };
 
   return (
-    <Layout style={{ minHeight: "100vh", width: "100%", maxWidth: "100vw", overflowX: "hidden" }}>
+    <Layout
+      style={{
+        minHeight: "100vh",
+        width: "100%",
+        maxWidth: "100vw",
+        overflowX: "hidden",
+      }}
+    >
       <Header
         style={{
           display: "flex",
@@ -49,7 +73,7 @@ export default function MainLayout() {
           background: "#001529",
           width: "100%",
           maxWidth: "100vw",
-          flexWrap: "wrap",
+          flexWrap: usarMenuHamburguesa ? "wrap" : "nowrap",
         }}
       >
         {/* Contenedor para el logo */}
@@ -62,14 +86,14 @@ export default function MainLayout() {
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
-            background: "rgba(255,255,255,0.08)",
+            background: "white",
             borderRadius: 6,
             overflow: "hidden",
           }}
         >
           <img
-            src={logoUnam}
-            alt="Logo UNAM - FES Aragón"
+            src={fesHeaderLogo}
+            alt="Logo FES Aragón"
             style={{ width: "100%", height: "100%", objectFit: "contain" }}
           />
         </div>
@@ -84,9 +108,11 @@ export default function MainLayout() {
             minWidth: 0,
           }}
         >
-          Facultad de Estudios Superiores Aragón
+          {esPantallaPequena
+            ? "FES Aragón"
+            : "Facultad de Estudios Superiores Aragón"}
         </Text>
-        {esPantallaPequena ? (
+        {usarMenuHamburguesa ? (
           <>
             <div style={{ flex: 1 }} />
             <Button
@@ -191,9 +217,24 @@ export default function MainLayout() {
           }}
         />
       </div>
-      <Content style={{ padding: esPantallaPequena ? "16px 12px" : "24px 16px", maxWidth: "100vw", overflowX: "hidden" }}>
+      <Content
+        style={{
+          padding: esPantallaPequena ? "16px 12px" : "24px 16px",
+          maxWidth: "100vw",
+          overflowX: "hidden",
+        }}
+      >
         <Row justify="center" style={{ margin: 0, maxWidth: "100%" }}>
-          <Col xs={24} sm={24} md={22} lg={20} xl={18} xxl={16} className="main-content-wrap" style={{ minWidth: 0, maxWidth: "100%" }}>
+          <Col
+            xs={24}
+            sm={24}
+            md={22}
+            lg={20}
+            xl={18}
+            xxl={16}
+            className="main-content-wrap"
+            style={{ minWidth: 0, maxWidth: "100%" }}
+          >
             <Outlet />
           </Col>
         </Row>
@@ -226,12 +267,30 @@ export default function MainLayout() {
           }}
         >
           <div style={{ marginBottom: 8 }}>
-            <div style={{ fontWeight: 800, fontFamily: '"poppins-bold", sans-serif' }}>Jefa de Carrera</div>
-            <div style={{ fontFamily: '"poppins-regular", sans-serif' }}>Ing. Ana Claudia Reyes Cruz</div>
+            <div
+              style={{
+                fontWeight: 800,
+                fontFamily: '"poppins-bold", sans-serif',
+              }}
+            >
+              Jefa de Carrera
+            </div>
+            <div style={{ fontFamily: '"poppins-regular", sans-serif' }}>
+              Ing. Ana Claudia Reyes Cruz
+            </div>
           </div>
           <div>
-            <div style={{ fontWeight: 800, fontFamily: '"poppins-bold", sans-serif' }}>Secretario Técnico</div>
-            <div style={{ fontFamily: '"poppins-regular", sans-serif' }}>Ing. Roberto Agustín García Castrejón</div>
+            <div
+              style={{
+                fontWeight: 800,
+                fontFamily: '"poppins-bold", sans-serif',
+              }}
+            >
+              Secretario Técnico
+            </div>
+            <div style={{ fontFamily: '"poppins-regular", sans-serif' }}>
+              Ing. Roberto Agustín García Castrejón
+            </div>
           </div>
         </div>
         <div

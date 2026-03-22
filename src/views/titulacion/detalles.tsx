@@ -25,7 +25,7 @@ export const DETALLES_REQUISITOS: DetalleRequisito[] = [
   {
     id: "requisitos-minimos-r4",
     descripcion:
-      "Es el documento oficial que acredita que tienes comprensión de lectura en inglés. Puedes obtenerlo del centro de lenguas FES Aragón.",
+      "Es el documento oficial que acredita que tienes comprensión de lectura en inglés (nivel B1). Puedes obtenerlo del centro de lenguas FES Aragón.",
   },
   {
     id: "requisitos-minimos-r5",
@@ -41,17 +41,17 @@ export const DETALLES_REQUISITOS: DetalleRequisito[] = [
   {
     id: "modalidad-a-r1",
     descripcion:
-      "Se debe seleccionar un asesor académico para el acompañamiento en la elaboración del trabajo escrito.",
+      "Se debe contar con la selección de un tutor académico aprobada por el comité académico de la carrera, quien acompaña la elaboración del trabajo escrito.",
   },
   {
     id: "modalidad-a-r2",
     descripcion:
-      "Trabajo de investigación original sobre un tema específico de la disciplina, el cual debe ser desarrollado bajo la supervisión de un asesor y presentado ante un jurado.",
+      "Trámite ante la jefatura de carrera para registrar formalmente el proyecto de investigación o trabajo escrito, conforme a formatos, requisitos y calendario que indique la jefatura.",
   },
   {
     id: "modalidad-a-r3",
     descripcion:
-      "Es la aprobación de parte de los revisores del trabajo desarrollado por el egresado.",
+      "El tutor debe firmar un documento en el que acredite que el trabajo está terminado y que cumple con los requisitos establecidos; con ello queda formalizada la aprobación del borrador final.",
   },
   {
     id: "modalidad-a-r4",
@@ -61,33 +61,34 @@ export const DETALLES_REQUISITOS: DetalleRequisito[] = [
   {
     id: "modalidad-a-r5",
     descripcion:
-      "Integración a proyecto de investigación activo durante el período mínimo de 1 semestre.",
+      "Integración a un proyecto de investigación activo durante al menos un semestre. El proyecto debe estar avalado por una institución académica reconocida; el investigador principal debe emitir una carta de aceptación.\n\n" +
+      "Además, se requiere constancia o documento que certifique la participación ante la jefatura o instancia correspondiente.",
   },
   {
     id: "modalidad-a-r6",
     descripcion:
-      "Elaborar un trabajo académico derivado de la investigación.\n\n" +
-      "El desarrollo del trabajo se realiza acompañado de un asesor académico.",
+      "Documento en el que se detallan las actividades realizadas en el proyecto y los resultados obtenidos, como evidencia del trabajo desarrollado durante la actividad de investigación.\n\n" +
+      "Su elaboración se realiza con el acompañamiento del tutor o asesor académico.",
   },
   {
     id: "modalidad-a-r7",
     descripcion:
-      "Presentación y defensa ante un jurado del trabajo desarrollado por el egresado.",
+      "Exposición ante jurado en la que se presentan y defienden los resultados de la actividad de investigación y el informe elaborado.",
   },
   {
     id: "modalidad-c-r2",
     descripcion:
-      "Presentar el Examen General para el Egreso de Licenciatura (EGEL) en el área de Ingeniería en Computación y obtener resultado aprobatorio.",
+      "Debes presentar el Examen General para el Egreso de Licenciatura (EGEL) en el área de Ingeniería en Computación y conservar el comprobante aprobatorio emitido por el organismo aplicador (CENEVAL/EGEL) que acredite resultado aprobatorio.",
   },
   {
     id: "modalidad-c-r3",
     descripcion:
-      "Contar con el testimonio de desempeño emitido por CENEVAL.",
+      "Contar con la constancia oficial de resultados emitida por CENEVAL (documento que acredita el desempeño en el examen).",
   },
   {
     id: "modalidad-c-r4",
     descripcion:
-      "Es necesario contar con un promedio final de 9.5.",
+      "Es necesario contar con un promedio final de 9.5, comprobable mediante historial académico.",
   },
   {
     id: "modalidad-c-r5",
@@ -104,12 +105,13 @@ export const DETALLES_REQUISITOS: DetalleRequisito[] = [
     descripcion:
       "El posgrado debe estar avalado por la institución (no cualquier programa es válido).\n\n" +
       "Cumplir con los requisitos de ingreso establecidos por el programa de posgrado.\n\n" +
-      "Acreditar el avance requerido dentro del posgrado conforme a los lineamientos.",
+      "Es necesario presentar carta de aceptación al programa de posgrado al que se ingresa.\n\n",
   },
   {
     id: "modalidad-c-r8",
     descripcion:
-      "Validar si el programa de posgrado al que se desea ingresar se encuentra validado por la institución para dicha modalidad.",
+      "El programa de posgrado debe estar autorizado o validado por la institución para esta modalidad.\n\n" +
+      "Se requiere comprobante de acreditación satisfactoria del primer semestre en dicho programa.",
   },
   {
     id: "modalidad-c-r9",
@@ -123,13 +125,11 @@ export const DETALLES_REQUISITOS: DetalleRequisito[] = [
   },
   {
     id: "modalidad-c-r11",
-    descripcion:
-      "La duración mínima del curso deberá ser de 240 horas.",
+    descripcion: "La duración mínima del curso deberá ser de 240 horas.",
   },
   {
     id: "modalidad-c-r12",
-    descripcion:
-      "La calificación mínima aprobatoria es de 8.",
+    descripcion: "La calificación mínima aprobatoria es de 8.",
   },
   {
     id: "modalidad-c-r13",
@@ -139,12 +139,13 @@ export const DETALLES_REQUISITOS: DetalleRequisito[] = [
   {
     id: "modalidad-b-r1",
     descripcion:
-      "Trabajo académico orientado a la generación de materiales o productos que contribuyan al proceso de enseñanza-aprendizaje o al desarrollo de actividades de investigación.",
+      "Trabajo académico orientado a la generación de materiales o productos que contribuyan al proceso de enseñanza-aprendizaje o al desarrollo de actividades de investigación.\n\n" +
+      "La creación de dicho material requiere la aprobación del comité académico, supervisión docente y evaluación por especialistas pedagógicos.",
   },
   {
     id: "modalidad-b-r2",
     descripcion:
-      "Académico responsable de orientar, supervisar y validar el desarrollo del trabajo de titulación del egresado, conforme a la modalidad seleccionada.",
+      "Debes contar con la selección formal de un asesor docente: académico que orienta, supervisa y valida el desarrollo del trabajo de titulación, conforme a la modalidad y los lineamientos de la jefatura.",
   },
   {
     id: "modalidad-b-r3",
@@ -166,7 +167,7 @@ export const DETALLES_REQUISITOS: DetalleRequisito[] = [
   {
     id: "modalidad-b-r6",
     descripcion:
-      "Es el documento oficial que acredita que tienes comprensión de lectura en inglés. Puedes obtenerlo del centro de lenguas FES Aragón.",
+      "Es el documento oficial que acredita que tienes comprensión de lectura en inglés (nivel B1). Puedes obtenerlo del centro de lenguas FES Aragón.",
   },
   {
     id: "modalidad-b-r7",
@@ -188,11 +189,12 @@ export const DETALLES_REQUISITOS: DetalleRequisito[] = [
     id: "modalidad-b-r10",
     descripcion:
       "Participar en un proyecto de investigación avalado por un académico.\n\n" +
-      "Se requiere como evidencia la portada de la revista, datos de indexación e identificadores ISSN/ISBN.",
+      "Se requiere como evidencia la portada de la revista, datos de indexación e identificadores ISSN/ISBN, carta de aceptación del artículo en revista indexada y copia del artículo mostrando afiliación institucional.",
   },
   {
     id: "modalidad-b-r11",
     descripcion:
-      "El egresado debe figurar como autor o coautor de la publicación.",
+      "El egresado debe figurar como autor o coautor de la publicación.\n\n" +
+      "En caso de coautoría, se requiere carta del investigador principal que confirme la participación del egresado.",
   },
 ];
