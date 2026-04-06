@@ -1,4 +1,5 @@
 import { Row, Col, Typography } from "antd";
+import { useTranslation } from "react-i18next";
 import imagenBibliotecas from "../../assets/images/ligas/biblioteca/digital.png";
 import imagenBibliotecas2 from "../../assets/images/ligas/biblioteca/fes.png";
 import CabeceraTitulo from "../../components/CabeceraTitulo.tsx";
@@ -6,6 +7,8 @@ import CabeceraTitulo from "../../components/CabeceraTitulo.tsx";
 const { Title, Paragraph } = Typography;
 
 export default function Bibliotecas() {
+  const { t } = useTranslation();
+
   return (
     <div
       style={{
@@ -16,19 +19,23 @@ export default function Bibliotecas() {
       }}
     >
       <div style={{ margin: "-10px -10px 0 -10px", marginBottom: "24px" }}>
-        <CabeceraTitulo variante="dorado">BIBLIOTECAS</CabeceraTitulo>
-        <CabeceraTitulo variante="azul" style={{ width: "95%" }} />
+        <CabeceraTitulo variante="dorado">
+          {t("bibliotecasPage.cabeceraLinea1")}
+        </CabeceraTitulo>
+        <CabeceraTitulo variante="azul" style={{ width: "95%" }}>
+          {t("bibliotecasPage.cabeceraLinea2")}
+        </CabeceraTitulo>
       </div>
       <Title
         level={3}
         style={{
-        margin: 0,
-        color: "#032047",
-        textAlign: "center",
-        fontFamily: '"poppins-bold", sans-serif',
-      }}
+          margin: 0,
+          color: "#032047",
+          textAlign: "center",
+          fontFamily: '"poppins-bold", sans-serif',
+        }}
       >
-        BIBLIOTECA DIGITAL UNAM
+        {t("bibliotecasPage.digital.sectionTitle")}
       </Title>
       <a
         href="https://www.bidi.unam.mx/"
@@ -60,7 +67,7 @@ export default function Bibliotecas() {
             >
               <img
                 src={imagenBibliotecas}
-                alt="Bibliotecas"
+                alt={t("bibliotecasPage.digital.imageAlt")}
                 style={{
                   width: "100%",
                   height: "auto",
@@ -80,28 +87,25 @@ export default function Bibliotecas() {
                 fontFamily: '"poppins-semibold", sans-serif',
               }}
             >
-              BIDI UNAM
+              {t("bibliotecasPage.digital.cardTitle")}
             </Title>
             <Paragraph
               style={{
                 textAlign: "justify",
                 marginBottom: 16,
                 fontFamily: '"poppins-regular", sans-serif',
-              }}>
-              Accede a la biblioteca digital de la UNAM para consultar libros,
-              revistas, documentos y más.
+              }}
+            >
+              {t("bibliotecasPage.digital.paragraph1")}
             </Paragraph>
             <Paragraph
               style={{
                 textAlign: "justify",
                 marginBottom: 16,
                 fontFamily: '"poppins-regular", sans-serif',
-              }}>
-              Te invitamos a conocer los horarios, requisitos de acceso y
-              catálogos disponibles. Para más información, acude al módulo de
-              biblioteca o consulta el portal de la Dirección General de
-              Bibliotecas y Servicios Digitales de Información (DGBSDI) de la
-              UNAM.
+              }}
+            >
+              {t("bibliotecasPage.moreInfo")}
             </Paragraph>
           </Col>
         </Row>
@@ -109,13 +113,13 @@ export default function Bibliotecas() {
       <Title
         level={3}
         style={{
-        margin: 0,
-        color: "#032047",
-        textAlign: "center",
-        fontFamily: '"poppins-bold", sans-serif',
-      }}
+          margin: 0,
+          color: "#032047",
+          textAlign: "center",
+          fontFamily: '"poppins-bold", sans-serif',
+        }}
       >
-        BIBLIOTECA FES ARAGÓN
+        {t("bibliotecasPage.fes.sectionTitle")}
       </Title>
 
       <a
@@ -148,7 +152,7 @@ export default function Bibliotecas() {
             >
               <img
                 src={imagenBibliotecas2}
-                alt="Bibliotecas"
+                alt={t("bibliotecasPage.fes.imageAlt")}
                 style={{
                   width: "100%",
                   height: "auto",
@@ -169,30 +173,25 @@ export default function Bibliotecas() {
                 fontFamily: '"poppins-semibold", sans-serif',
               }}
             >
-              Biblioteca "Jesus Reyes Heroles"
+              {t("bibliotecasPage.fes.cardTitle")}
             </Title>
             <Paragraph
               style={{
                 textAlign: "justify",
                 marginBottom: 16,
                 fontFamily: '"poppins-regular", sans-serif',
-              }}>
-              La FES Aragón cuenta con servicios de biblioteca que apoyan la
-              docencia, la investigación y el aprendizaje. Los usuarios pueden
-              consultar acervo físico y digital, así como acceder a bases de
-              datos y recursos en línea.
+              }}
+            >
+              {t("bibliotecasPage.fes.paragraph1")}
             </Paragraph>
             <Paragraph
               style={{
                 textAlign: "justify",
                 marginBottom: 16,
                 fontFamily: '"poppins-regular", sans-serif',
-              }}>
-              Te invitamos a conocer los horarios, requisitos de acceso y
-              catálogos disponibles. Para más información, acude al módulo de
-              biblioteca o consulta el portal de la Dirección General de
-              Bibliotecas y Servicios Digitales de Información (DGBSDI) de la
-              UNAM.
+              }}
+            >
+              {t("bibliotecasPage.moreInfo")}
             </Paragraph>
           </Col>
         </Row>

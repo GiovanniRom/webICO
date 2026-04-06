@@ -182,6 +182,72 @@ const en = {
       alt: "Libraries",
     },
   },
+  culturaPage: {
+    cabeceraLinea1: "CULTURE",
+    cabeceraLinea2: "COMPUTING",
+    cards: {
+      boletin: {
+        alt: "Email",
+        titulo: "NEWSLETTER",
+        descripcion: "Newsletter from the computing centre.",
+      },
+      revistas: {
+        alt: "Journal",
+        titulo: "SCIENTIFIC JOURNALS",
+        descripcion: "Portal of UNAM scientific journals.",
+      },
+      seguridadTv: {
+        alt: "Shield",
+        titulo: "SECURITY TV",
+        descripcion: "UNAM security channel on YouTube.",
+      },
+      portal: {
+        alt: "Portal",
+        titulo: "PORTAL",
+        descripcion: "Home-user portal (UNAM security).",
+      },
+      unamCert: {
+        alt: "Outreach",
+        titulo: "UNAM-CERT",
+        descripcion: "UNAM scientific and cultural outreach.",
+      },
+      sepacomputo: {
+        alt: "TV",
+        titulo: "SEPACÓMPUTO",
+        descripcion: "University television and cultural content.",
+      },
+      unamCanal: {
+        alt: "UNAM",
+        titulo: "UNAM",
+        descripcion: "Official UNAM channel on YouTube.",
+      },
+      seguridadInfo: {
+        alt: "Security",
+        titulo: "INFORMATION SECURITY",
+        descripcion: "UNAM information-security publications.",
+      },
+    },
+  },
+  bibliotecasPage: {
+    cabeceraLinea1: "LIBRARIES",
+    cabeceraLinea2: "",
+    moreInfo:
+      "We encourage you to check opening hours, access requirements, and available catalogues. For more information, visit the library desk or the portal of UNAM's General Directorate of Libraries and Digital Information Services (DGBSDI).",
+    digital: {
+      sectionTitle: "UNAM DIGITAL LIBRARY",
+      imageAlt: "UNAM digital library",
+      cardTitle: "BIDI UNAM",
+      paragraph1:
+        "Use UNAM's digital library to browse books, journals, documents, and more.",
+    },
+    fes: {
+      sectionTitle: "FES ARAGÓN LIBRARY",
+      imageAlt: "FES Aragón library",
+      cardTitle: "“Jesús Reyes Heroles” Library",
+      paragraph1:
+        "FES Aragón offers library services that support teaching, research, and learning. Users can consult physical and digital collections and access databases and online resources.",
+    },
+  },
   schedulesView: {
     tituloSemestre: "CLASS SCHEDULES — 2026-II TERM",
     subtituloPlan: "STUDY PLAN 2119",

@@ -187,6 +187,74 @@ const es = {
       alt: "Bibliotecas",
     },
   },
+  culturaPage: {
+    cabeceraLinea1: "CULTURA",
+    cabeceraLinea2: "INFORMÁTICA",
+    cards: {
+      boletin: {
+        alt: "Correo",
+        titulo: "BOLETÍN",
+        descripcion: "Boletín del centro de cómputo.",
+      },
+      revistas: {
+        alt: "Revista",
+        titulo: "REVISTAS CIENTÍFICAS",
+        descripcion: "Portal de revistas científicas de la UNAM.",
+      },
+      seguridadTv: {
+        alt: "Escudo",
+        titulo: "SEGURIDAD TV",
+        descripcion: "Canal de seguridad de la UNAM.",
+      },
+      portal: {
+        alt: "Portal",
+        titulo: "PORTAL",
+        descripcion: "Portal del usuario casero.",
+      },
+      unamCert: {
+        alt: "Divulgación",
+        titulo: "UNAM-CERT",
+        descripcion: "Divulgación científica y cultural de la UNAM.",
+      },
+      sepacomputo: {
+        alt: "Televisión",
+        titulo: "SEPACÓMPUTO",
+        descripcion: "Televisión universitaria y contenidos culturales.",
+      },
+      unamCanal: {
+        alt: "UNAM",
+        titulo: "UNAM",
+        descripcion:
+          "Canal oficial de la UNAM en la plataforma de YouTube.",
+      },
+      seguridadInfo: {
+        alt: "Seguridad",
+        titulo: "SEGURIDAD DE LA INFORMACIÓN",
+        descripcion:
+          "Documentos de seguridad de la información de la UNAM.",
+      },
+    },
+  },
+  bibliotecasPage: {
+    cabeceraLinea1: "BIBLIOTECAS",
+    cabeceraLinea2: "",
+    moreInfo:
+      "Te invitamos a conocer los horarios, requisitos de acceso y catálogos disponibles. Para más información, acude al módulo de biblioteca o consulta el portal de la Dirección General de Bibliotecas y Servicios Digitales de Información (DGBSDI) de la UNAM.",
+    digital: {
+      sectionTitle: "BIBLIOTECA DIGITAL UNAM",
+      imageAlt: "Biblioteca digital UNAM",
+      cardTitle: "BIDI UNAM",
+      paragraph1:
+        "Accede a la biblioteca digital de la UNAM para consultar libros, revistas, documentos y más.",
+    },
+    fes: {
+      sectionTitle: "BIBLIOTECA FES ARAGÓN",
+      imageAlt: "Biblioteca FES Aragón",
+      cardTitle: 'Biblioteca "Jesús Reyes Heroles"',
+      paragraph1:
+        "La FES Aragón cuenta con servicios de biblioteca que apoyan la docencia, la investigación y el aprendizaje. Los usuarios pueden consultar acervo físico y digital, así como acceder a bases de datos y recursos en línea.",
+    },
+  },
   schedulesView: {
     tituloSemestre: "HORARIOS DE SEMESTRE 2026 II",
     subtituloPlan: "PLAN 2119",
