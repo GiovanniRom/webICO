@@ -1,8 +1,11 @@
 import { Collapse, Row, Col } from "antd";
+import { useTranslation } from "react-i18next";
 import imagenEgreso from "../../assets/images/plan/egresoicon.png";
 import CabeceraTitulo from "../../components/CabeceraTitulo.tsx";
 
 export default function PlanEgreso() {
+  const { t } = useTranslation();
+
   return (
     <div
       style={{
@@ -13,9 +16,11 @@ export default function PlanEgreso() {
       }}
     >
       <div style={{ margin: "-10px -10px 0 -10px" }}>
-        <CabeceraTitulo variante="dorado">PERFIL DE</CabeceraTitulo>
+        <CabeceraTitulo variante="dorado">
+          {t("egresoPage.cabeceraLinea1")}
+        </CabeceraTitulo>
         <CabeceraTitulo variante="azul" style={{ width: "95%" }}>
-          EGRESO
+          {t("egresoPage.cabeceraLinea2")}
         </CabeceraTitulo>
       </div>
 
@@ -31,7 +36,7 @@ export default function PlanEgreso() {
           >
             <img
               src={imagenEgreso}
-              alt="Perfil de egreso"
+              alt={t("egresoPage.imagenAlt")}
               style={{
                 width: "100%",
                 height: "auto",
@@ -48,21 +53,18 @@ export default function PlanEgreso() {
                 key: "1",
                 label: (
                   <span style={{ fontFamily: '"poppins-semibold", sans-serif' }}>
-                    ¿Qué es el perfil de egreso?
+                    {t("egresoPage.queEsLabel")}
                   </span>
                 ),
                 children: (
                   <p
-                  style={{
-                    margin: 0,
-                    textAlign: "justify",
-                    fontFamily: '"poppins-regular", sans-serif',
-                  }}>
-                    El perfil de egreso describe las competencias, conocimientos,
-                    habilidades y actitudes que el estudiante habrá desarrollado
-                    al concluir la carrera de Ingeniería en Computación en la FES
-                    Aragón, y que le permiten insertarse en el ámbito laboral o
-                    continuar con estudios de posgrado.
+                    style={{
+                      margin: 0,
+                      textAlign: "justify",
+                      fontFamily: '"poppins-regular", sans-serif',
+                    }}
+                  >
+                    {t("egresoPage.queEsBody")}
                   </p>
                 ),
               },
@@ -70,21 +72,18 @@ export default function PlanEgreso() {
                 key: "2",
                 label: (
                   <span style={{ fontFamily: '"poppins-semibold", sans-serif' }}>
-                    Competencias profesionales
+                    {t("egresoPage.competenciasLabel")}
                   </span>
                 ),
                 children: (
                   <p
-                  style={{
-                    margin: 0,
-                    textAlign: "justify",
-                    fontFamily: '"poppins-regular", sans-serif',
-                  }}>
-                    El egresado será capaz de analizar, diseñar, desarrollar e
-                    implementar sistemas de software y hardware; gestionar
-                    proyectos de TI; aplicar metodologías y estándares de la
-                    ingeniería; y comunicar resultados de forma oral y escrita
-                    en contextos profesionales y académicos.
+                    style={{
+                      margin: 0,
+                      textAlign: "justify",
+                      fontFamily: '"poppins-regular", sans-serif',
+                    }}
+                  >
+                    {t("egresoPage.competenciasBody")}
                   </p>
                 ),
               },
@@ -92,21 +91,18 @@ export default function PlanEgreso() {
                 key: "3",
                 label: (
                   <span style={{ fontFamily: '"poppins-semibold", sans-serif' }}>
-                    Ámbitos de desempeño
+                    {t("egresoPage.ambitosLabel")}
                   </span>
                 ),
                 children: (
                   <p
-                  style={{
-                    margin: 0,
-                    textAlign: "justify",
-                    fontFamily: '"poppins-regular", sans-serif',
-                  }}>
-                    El ingeniero en computación puede desempeñarse en empresas del
-                    sector público y privado, en desarrollo de software, bases de
-                    datos, redes, inteligencia artificial, ciberseguridad,
-                    docencia e investigación, así como en el emprendimiento de
-                    proyectos tecnológicos.
+                    style={{
+                      margin: 0,
+                      textAlign: "justify",
+                      fontFamily: '"poppins-regular", sans-serif',
+                    }}
+                  >
+                    {t("egresoPage.ambitosBody")}
                   </p>
                 ),
               },

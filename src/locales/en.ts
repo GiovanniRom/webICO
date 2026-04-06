@@ -215,6 +215,71 @@ const en = {
       "Equivalency reference for complementary training hours",
     tituloEquivalencias: "COMPLEMENTARY TRAINING HOUR EQUIVALENCIES",
   },
+  egresoPage: {
+    cabeceraLinea1: "GRADUATE",
+    cabeceraLinea2: "PROFILE",
+    imagenAlt: "Graduate profile",
+    queEsLabel: "What is the graduate profile?",
+    queEsBody:
+      "The graduate profile describes the competencies, knowledge, skills, and attitudes students will have developed upon completing the B.Sc. in Computer Engineering at FES Aragón, enabling them to enter the workforce or pursue graduate studies.",
+    competenciasLabel: "Professional competencies",
+    competenciasBody:
+      "Graduates can analyze, design, develop, and implement software and hardware systems; manage IT projects; apply engineering methodologies and standards; and communicate results orally and in writing in professional and academic settings.",
+    ambitosLabel: "Areas of practice",
+    ambitosBody:
+      "Computer engineers may work in the public and private sectors in software development, databases, networks, artificial intelligence, cybersecurity, teaching, and research, as well as in technology-based entrepreneurship.",
+  },
+  ingresoPage: {
+    cabeceraLinea1: "ADMISSION",
+    cabeceraLinea2: "PROFILE",
+    imagenAlt: "Admission profile",
+    queEsLabel: "What is the admission profile?",
+    queEsBody:
+      "The admission profile describes the traits prospective students should bring to the B.Sc. in Computer Engineering at FES Aragón: prior knowledge, skills, attitudes, and values that support success in the curriculum.",
+    conocimientosLabel: "Recommended background",
+    conocimientosBody:
+      "Applicants are encouraged to have a solid foundation in mathematics (algebra, geometry, precalculus), logical and abstract reasoning, and an interest in technology and solving problems using computers.",
+    habilidadesLabel: "Skills and attitudes",
+    habilidadesBody:
+      "It is helpful to show analytical ability, teamwork, discipline for independent study, scientific curiosity, and a willingness to keep learning in a fast-changing field.",
+  },
+  informationPage: {
+    valores: {
+      titulo: "VALUES",
+      alt: "Values",
+      columna1: `• Full alignment with UNAM values as the values of FES Aragón.
+• Generosity in all contributions to the country.
+• Responsibility in studying national problems and issues.
+• Commitment to Mexican society.
+• Commitment to training high-quality graduates at undergraduate and graduate levels.
+`,
+      columna2: `• Loyalty to UNAM's mission.
+• Institutional leadership.
+• University spirit.
+• Respect for diversity and differing viewpoints.
+• Respect for the environment.
+• Unity with university units.
+• Collegiality among faculty and staff.`,
+    },
+    objetivos: {
+      titulo: "OBJECTIVES",
+      alt: "Objectives",
+      descripcion:
+        "Train leaders in Computer Engineering with theoretical and practical knowledge to solve computational problems society demands, committed to the country's needs and development.",
+    },
+    mision: {
+      titulo: "MISSION",
+      alt: "Mission",
+      descripcion:
+        "Train professionals with a strong university spirit, committed to national growth, able to find innovative solutions, and highly skilled in mathematics, programming, software engineering, information processing, computer architecture, networks, security, and control.",
+    },
+    vision: {
+      titulo: "VISION",
+      alt: "Vision",
+      descripcion:
+        "Be a cutting-edge programme that keeps faculty, infrastructure, and study plans constantly updated, preparing computer engineers who can respond to the country's changing needs.",
+    },
+  },
 } as const;
 
 export default en;

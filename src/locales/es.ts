@@ -220,6 +220,71 @@ const es = {
       "Equivalencias de horas de formación complementaria",
     tituloEquivalencias: "EQUIVALENCIAS DE HORAS DE FORMACIÓN COMPLEMENTARIA",
   },
+  egresoPage: {
+    cabeceraLinea1: "PERFIL DE",
+    cabeceraLinea2: "EGRESO",
+    imagenAlt: "Perfil de egreso",
+    queEsLabel: "¿Qué es el perfil de egreso?",
+    queEsBody:
+      "El perfil de egreso describe las competencias, conocimientos, habilidades y actitudes que el estudiante habrá desarrollado al concluir la carrera de Ingeniería en Computación en la FES Aragón, y que le permiten insertarse en el ámbito laboral o continuar con estudios de posgrado.",
+    competenciasLabel: "Competencias profesionales",
+    competenciasBody:
+      "El egresado será capaz de analizar, diseñar, desarrollar e implementar sistemas de software y hardware; gestionar proyectos de TI; aplicar metodologías y estándares de la ingeniería; y comunicar resultados de forma oral y escrita en contextos profesionales y académicos.",
+    ambitosLabel: "Ámbitos de desempeño",
+    ambitosBody:
+      "El ingeniero en computación puede desempeñarse en empresas del sector público y privado, en desarrollo de software, bases de datos, redes, inteligencia artificial, ciberseguridad, docencia e investigación, así como en el emprendimiento de proyectos tecnológicos.",
+  },
+  ingresoPage: {
+    cabeceraLinea1: "PERFIL DE",
+    cabeceraLinea2: "INGRESO",
+    imagenAlt: "Perfil de ingreso",
+    queEsLabel: "¿Qué es el perfil de ingreso?",
+    queEsBody:
+      "El perfil de ingreso describe las características que debe reunir el aspirante a la carrera de Ingeniería en Computación en la FES Aragón: conocimientos previos, habilidades, actitudes y valores que facilitan un buen desempeño en el plan de estudios.",
+    conocimientosLabel: "Conocimientos recomendados",
+    conocimientosBody:
+      "Se recomienda que el aspirante tenga bases sólidas en matemáticas (álgebra, geometría, precálculo), capacidad de razonamiento lógico y abstracto, así como interés por la tecnología y la resolución de problemas mediante el uso de computadoras.",
+    habilidadesLabel: "Habilidades y actitudes",
+    habilidadesBody:
+      "Es deseable contar con capacidad de análisis, trabajo en equipo, disciplina para el estudio autónomo, curiosidad científica y disposición para actualizarse de forma continua en un área en constante evolución.",
+  },
+  informationPage: {
+    valores: {
+      titulo: "VALORES",
+      alt: "Valores",
+      columna1: `• Identificación plena de los valores de la UNAM como los valores de la FES Aragón.
+• Generosidad en todas sus aportaciones al país.
+• Responsabilidad en el estudio de problemas y temas nacionales.
+• Compromiso con la sociedad mexicana.
+• Compromiso con la formación de egresados de calidad a nivel Licenciatura y Posgrado.
+`,
+      columna2: `• Lealtad a las tareas de la UNAM.
+• Liderazgo institucional.
+• Espíritu universitario.
+• Respeto a la diversidad e ideologías.
+• Respeto al medio ambiente.
+• Unidad con las dependencias universitarias.
+• Compañerismo entre el personal de la Facultad.`,
+    },
+    objetivos: {
+      titulo: "OBJETIVOS",
+      alt: "Objetivos",
+      descripcion:
+        "Formar profesionales en Ingeniería en Computación líderes, con conocimientos teóricos y prácticos útiles para la solución de problemas computacionales que la sociedad demanda, comprometidos con las necesidades y desarrollo del país.",
+    },
+    mision: {
+      titulo: "MISIÓN",
+      alt: "Misión",
+      descripcion:
+        "Formar profesionales con un gran espíritu universitario que estén comprometidos con el crecimiento del país, con capacidades para encontrar soluciones innovadoras y con un alto nivel de conocimientos en matemáticas, programación e ingeniería de software, procesamiento de la información, arquitectura de computadoras, redes, seguridad y control.",
+    },
+    vision: {
+      titulo: "VISIÓN",
+      alt: "Visión",
+      descripcion:
+        "Ser una carrera de vanguardia que asegure la actualización constante de su planta docente, infraestructura y planes de estudio, para formar Ingenieros en Computación capaces de responder a los cambios que demande el país.",
+    },
+  },
 } as const;
 
 export default es;
