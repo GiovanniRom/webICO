@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import Contenido from "../../components/ContenidoHtml.tsx";
 import CabeceraTitulo from "../../components/CabeceraTitulo.tsx";
 
@@ -296,6 +297,8 @@ mostrarDatos(datos);
 `;
 
 export default function AlumnosTutores() {
+  const { t } = useTranslation();
+
   return (
     <div
       style={{
@@ -306,9 +309,11 @@ export default function AlumnosTutores() {
       }}
     >
       <div style={{ margin: "-10px -10px 0 -10px" }}>
-        <CabeceraTitulo variante="dorado">TUTORES</CabeceraTitulo>
+        <CabeceraTitulo variante="dorado">
+          {t("tutorsView.titulo")}
+        </CabeceraTitulo>
         <CabeceraTitulo variante="azul" style={{ width: "95%" }}>
-            SEMESTRE 2026 II
+          {t("tutorsView.semestre")}
         </CabeceraTitulo>
       </div>
       <Contenido html={html} sandbox="allow-same-origin allow-scripts" />

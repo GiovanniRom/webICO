@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import Contenido from "../../components/ContenidoHtml.tsx";
 import CabeceraTitulo from "../../components/CabeceraTitulo.tsx";
 
@@ -7,6 +8,8 @@ const html = `
 `;
 
 export default function AlumnosCalendario() {
+  const { t } = useTranslation();
+
   return (
     <div
       style={{
@@ -18,10 +21,10 @@ export default function AlumnosCalendario() {
     >
       <div style={{ margin: "-10px -10px 0 -10px" }}>
         <CabeceraTitulo variante="dorado">
-          CALENDARIO ESCOLAR 2026 II
+          {t("calendarView.tituloPrincipal")}
         </CabeceraTitulo>
         <CabeceraTitulo variante="azul" style={{ width: "95%" }}>
-          PLAN SEMESTRAL
+          {t("calendarView.subtitulo")}
         </CabeceraTitulo>
       </div>
       <Contenido html={html} sandbox="allow-same-origin allow-scripts" />

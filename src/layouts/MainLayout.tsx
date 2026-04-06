@@ -1,6 +1,19 @@
-import { useState, useEffect } from "react";
-import { Layout, Menu, Typography, Row, Col, Button, Drawer, Grid } from "antd";
-import { MenuOutlined } from "@ant-design/icons";
+import { useState, useEffect, useMemo } from "react";
+import type { MenuProps } from "antd";
+import {
+  Layout,
+  Menu,
+  Typography,
+  Row,
+  Col,
+  Button,
+  Drawer,
+  Grid,
+  Dropdown,
+  Divider,
+} from "antd";
+import { DownOutlined, MenuOutlined } from "@ant-design/icons";
+import { useTranslation } from "react-i18next";
 import { useNavigate, useLocation, Outlet } from "react-router-dom";
 import fesHeaderLogo from "../assets/images/fes.png";
 import logofes from "../assets/images/logofes.png";
@@ -26,16 +39,8 @@ const CABECERA_LOGOS_MAX_ALTURA_MOVIL_PX = 300;
 const CABECERA_LOGO_IMG_MAX_ALTURA_PX = 128;
 const CABECERA_LOGO_IMG_MAX_ALTURA_MOVIL_PX = 112;
 
-const items = [
-  { key: "/", label: "Inicio" },
-  { key: "/alumnos", label: "Alumnos" },
-  { key: "/plan-estudios", label: "Plan de estudios" },
-  { key: "/profesores", label: "Profesores" },
-  { key: "/egresados", label: "Egresados" },
-  { key: "/ligas-interes", label: "Ligas de interés" },
-];
-
 export default function MainLayout() {
+  const { t, i18n } = useTranslation();
   const navigate = useNavigate();
   const location = useLocation();
   const screens = useBreakpoint();
@@ -67,6 +72,66 @@ export default function MainLayout() {
     navigate(key);
     setDrawerAbierto(false);
   };
+
+  const itemsMenu = useMemo(
+    () => [
+      { key: "/", label: t("nav.inicio") },
+      { key: "/alumnos", label: t("nav.alumnos") },
+      { key: "/plan-estudios", label: t("nav.planEstudios") },
+      { key: "/profesores", label: t("nav.profesores") },
+      { key: "/egresados", label: t("nav.egresados") },
+      { key: "/ligas-interes", label: t("nav.ligasInteres") },
+    ],
+    [t],
+  );
+
+  const codigoIdiomaUi = i18n.resolvedLanguage?.startsWith("en")
+    ? "en"
+    : "es";
+
+  const menuIdioma: MenuProps["items"] = useMemo(
+    () => [
+      {
+        key: "es",
+        label: t("nav.espanol"),
+        onClick: () => {
+          void i18n.changeLanguage("es");
+        },
+      },
+      {
+        key: "en",
+        label: t("nav.ingles"),
+        onClick: () => {
+          void i18n.changeLanguage("en");
+        },
+      },
+    ],
+    [t, i18n],
+  );
+
+  const botonSelectorIdioma = (
+    <Dropdown
+      menu={{
+        items: menuIdioma,
+        selectable: true,
+        selectedKeys: [codigoIdiomaUi],
+      }}
+      trigger={["click"]}
+      placement="bottomRight"
+    >
+      <Button
+        type="text"
+        style={{
+          color: "#fff",
+          flexShrink: 0,
+          fontFamily: '"poppins-regular", sans-serif',
+        }}
+        aria-haspopup="menu"
+      >
+        {t("nav.idioma")} <DownOutlined style={{ fontSize: 12 }} />
+      </Button>
+    </Dropdown>
+  );
 
   return (
     <Layout
@@ -106,7 +171,7 @@ export default function MainLayout() {
         >
           <img
             src={fesHeaderLogo}
-            alt="Logo FES Aragón"
+            alt={t("layout.logoFesAlt")}
             style={{ width: "100%", height: "100%", objectFit: "contain" }}
           />
         </div>
@@ -122,22 +187,23 @@ export default function MainLayout() {
           }}
         >
           {esPantallaPequena
-            ? "FES Aragón"
-            : "Facultad de Estudios Superiores Aragón"}
+            ? t("header.facultadCorto")
+            : t("header.facultadLargo")}
         </Text>
         {usarMenuHamburguesa ? (
           <>
             <div style={{ flex: 1 }} />
+            {botonSelectorIdioma}
             <Button
               type="text"
               icon={<MenuOutlined style={{ fontSize: 22, color: "#fff" }} />}
               onClick={() => setDrawerAbierto(true)}
-              aria-label="Abrir menú"
+              aria-label={t("layout.abrirMenu")}
               style={{ flexShrink: 0 }}
             />
             <Drawer
               className="drawer-menu-nav"
-              title="Menú"
+              title={t("layout.menu")}
               placement="right"
               onClose={() => setDrawerAbierto(false)}
               open={drawerAbierto}
@@ -154,7 +220,7 @@ export default function MainLayout() {
                 theme="dark"
                 mode="vertical"
                 selectedKeys={[location.pathname]}
-                items={items}
+                items={itemsMenu}
                 onClick={({ key }) => handleItemClick(key)}
                 style={{
                   borderRight: "none",
@@ -162,24 +228,84 @@ export default function MainLayout() {
                   background: "transparent",
                 }}
               />
+              <Divider
+                style={{
+                  margin: "8px 0 0",
+                  borderColor: "rgba(186, 154, 58, 0.35)",
+                }}
+              />
+              <div
+                style={{
+                  padding: "12px 16px 16px",
+                  fontFamily: '"poppins-regular", sans-serif',
+                }}
+              >
+                <Text
+                  style={{
+                    display: "block",
+                    marginBottom: 8,
+                    color: "#ba9a3a",
+                    fontFamily: '"poppins-semibold", sans-serif',
+                  }}
+                >
+                  {t("nav.idioma")}
+                </Text>
+                <Button
+                  type="text"
+                  block
+                  style={{
+                    color: "#fff",
+                    textAlign: "left",
+                    height: "auto",
+                    padding: "8px 0",
+                  }}
+                  onClick={() => {
+                    void i18n.changeLanguage("es");
+                    setDrawerAbierto(false);
+                  }}
+                >
+                  {t("nav.espanol")}
+                  {codigoIdiomaUi === "es" ? " ✓" : ""}
+                </Button>
+                <Button
+                  type="text"
+                  block
+                  style={{
+                    color: "#fff",
+                    textAlign: "left",
+                    height: "auto",
+                    padding: "8px 0",
+                  }}
+                  onClick={() => {
+                    void i18n.changeLanguage("en");
+                    setDrawerAbierto(false);
+                  }}
+                >
+                  {t("nav.ingles")}
+                  {codigoIdiomaUi === "en" ? " ✓" : ""}
+                </Button>
+              </div>
             </Drawer>
           </>
         ) : (
-          <Menu
-            className="nav-menu-principal"
-            theme="dark"
-            mode="horizontal"
-            selectedKeys={[location.pathname]}
-            items={items}
-            onClick={({ key }) => navigate(key)}
-            style={{
-              flex: 1,
-              borderBottom: "none",
-              lineHeight: "64px",
-              minWidth: "auto",
-              justifyContent: "flex-end",
-            }}
-          />
+          <>
+            <Menu
+              className="nav-menu-principal"
+              theme="dark"
+              mode="horizontal"
+              selectedKeys={[location.pathname]}
+              items={itemsMenu}
+              onClick={({ key }) => navigate(key)}
+              style={{
+                flex: 1,
+                borderBottom: "none",
+                lineHeight: "64px",
+                minWidth: "auto",
+                justifyContent: "flex-end",
+              }}
+            />
+            {botonSelectorIdioma}
+          </>
         )}
       </Header>
       {/* Cabecera con logos */}
@@ -209,7 +335,7 @@ export default function MainLayout() {
       >
         <img
           src={logofes}
-          alt="Logo FES Aragón"
+          alt={t("layout.logoFesAlt")}
           className="cabecera-logo-fes"
           style={{
             height: "auto",
@@ -222,7 +348,7 @@ export default function MainLayout() {
         />
         <img
           src={logoico}
-          alt="Logo ICO"
+          alt={t("layout.logoIcoAlt")}
           className="cabecera-logo-ico"
           style={{
             height: "auto",
@@ -274,7 +400,7 @@ export default function MainLayout() {
       >
         <img
           src={aniv}
-          alt="50 aniversario"
+          alt={t("footer.aniversarioAlt")}
           style={{ width: "150px", height: "auto" }}
         />
         <div
@@ -290,7 +416,7 @@ export default function MainLayout() {
                 fontFamily: '"poppins-bold", sans-serif',
               }}
             >
-              Jefa de Carrera
+              {t("footer.jefaCarrera")}
             </div>
             <div style={{ fontFamily: '"poppins-regular", sans-serif' }}>
               Ing. Ana Claudia Reyes Cruz
@@ -303,7 +429,7 @@ export default function MainLayout() {
                 fontFamily: '"poppins-bold", sans-serif',
               }}
             >
-              Secretario Técnico
+              {t("footer.secretarioTecnico")}
             </div>
             <div style={{ fontFamily: '"poppins-regular", sans-serif' }}>
               Ing. Roberto Agustín García Castrejón
@@ -320,11 +446,11 @@ export default function MainLayout() {
         >
           <a
             href="mailto:computacion@aragon.unam.mx"
-            aria-label="Enviar correo a computacion@aragon.unam.mx"
+            aria-label={t("footer.correoAria")}
           >
             <img
               src={correo}
-              alt="Correo"
+              alt={t("footer.correoAlt")}
               style={{ width: "100px", height: "auto", display: "block" }}
             />
           </a>
@@ -332,7 +458,7 @@ export default function MainLayout() {
             href="https://api.whatsapp.com/send?phone=5216632132912&text=Hola%21%20"
             target="_blank"
             rel="noopener noreferrer"
-            aria-label="WhatsApp Jefatura Ingeniería en Computación"
+            aria-label={t("footer.whatsappAria")}
           >
             <img
               src={wa}
@@ -344,7 +470,7 @@ export default function MainLayout() {
             href="https://www.facebook.com/FESAragon.computacion"
             target="_blank"
             rel="noopener noreferrer"
-            aria-label="Facebook FES Aragón Computación"
+            aria-label={t("footer.facebookAria")}
           >
             <img
               src={fb}

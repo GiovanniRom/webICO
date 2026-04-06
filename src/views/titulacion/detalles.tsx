@@ -32,7 +32,7 @@ export const DETALLES_REQUISITOS: DetalleRequisito[] = [
   {
     id: "requisitos-minimos-r4",
     descripcion:
-      "Es el documento oficial que acredita que tienes comprensión de lectura en inglés (nivel B1). Puedes obtenerlo del centro de lenguas FES Aragón.\n\n" +
+      "Es el documento oficial que acredita que tienes comprensión de lectura en inglés. Puedes obtenerlo del centro de lenguas FES Aragón.\n\n" +
       "Si la constancia es digital, es necesario imprimirla en papel opalina a color.",
     imagen: constanciaidioma,
   },
@@ -47,8 +47,8 @@ export const DETALLES_REQUISITOS: DetalleRequisito[] = [
     descripcion: (
       <>
         El certificado de estudios se solicita durante la etapa inicial del
-        proceso de titulación, de manera paralela al registro de modalidad y a la
-        revisión de estudios. Para obtenerlo es necesario llevar tu historial
+        proceso de titulación, de manera paralela al registro de modalidad y a
+        la revisión de estudios. Para obtenerlo es necesario llevar tu historial
         académico con estatus de término 11 y 4 fotografías tamaño credencial
         ovaladas (3,5 × 5 cm) a servicios escolares.
         {"\n\n"}
@@ -203,7 +203,7 @@ export const DETALLES_REQUISITOS: DetalleRequisito[] = [
   {
     id: "modalidad-b-r6",
     descripcion:
-      "Es el documento oficial que acredita que tienes comprensión de lectura en inglés (nivel B1). Puedes obtenerlo del centro de lenguas FES Aragón.\n\n" +
+      "Es el documento oficial que acredita que tienes comprensión de lectura en inglés. Puedes obtenerlo del centro de lenguas FES Aragón.\n\n" +
       "Si la constancia es digital, es necesario imprimirla en papel opalina a color.",
     imagen: constanciaidioma,
   },

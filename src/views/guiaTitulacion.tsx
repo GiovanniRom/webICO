@@ -112,7 +112,7 @@ const SECCIONES: Seccion[] = [
       },
       {
         id: "requisitos-minimos-r4",
-        texto: "Constancia de idioma acreditando nivel B1",
+        texto: "Constancia de acreditación de idioma inglés",
       },
       {
         id: "requisitos-minimos-r5",
@@ -233,7 +233,7 @@ const SECCIONES: Seccion[] = [
           },
           {
             id: "modalidad-b-r6",
-            texto: "Constancia de acreditación de idioma inglés (nivel B1)",
+            texto: "Constancia de acreditación de idioma inglés.",
           },
           {
             id: "modalidad-b-r7",

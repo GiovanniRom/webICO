@@ -1,10 +1,13 @@
 import { Typography, Collapse } from "antd";
+import { useTranslation } from "react-i18next";
 import VistaPreviaDocumento from "../../components/VistaPreviaDocumento.tsx";
 import CabeceraTitulo from "../../components/CabeceraTitulo.tsx";
 
 const { Title } = Typography;
 
 export default function AlumnosRedes() {
+  const { t } = useTranslation();
+
   return (
     <div
       style={{
@@ -16,10 +19,10 @@ export default function AlumnosRedes() {
     >
       <div style={{ margin: "-10px -10px 0 -10px" }}>
         <CabeceraTitulo variante="dorado">
-          PRÁCTICAS DE REDES DE COMPUTADORAS
+          {t("networksView.tituloPrincipal")}
         </CabeceraTitulo>
         <CabeceraTitulo variante="azul" style={{ width: "95%" }}>
-          PRÁCTICAS DE LABORATORIO
+          {t("networksView.subtitulo")}
         </CabeceraTitulo>
       </div>
       <Collapse
@@ -29,7 +32,7 @@ export default function AlumnosRedes() {
             key: "redes1",
             label: (
               <span style={{ fontFamily: '"poppins-bold", sans-serif' }}>
-                PRÁCTICAS DE REDES I
+                {t("networksView.panelRedes1")}
               </span>
             ),
             children: (
@@ -42,7 +45,7 @@ export default function AlumnosRedes() {
                   fontFamily: '"poppins-semibold", sans-serif',
                 }}
                 >
-                  PRÁCTICA 1
+                  {t("networksView.practica", { num: 1 })}
                 </Title>
                 <div
                   style={{
@@ -84,7 +87,7 @@ export default function AlumnosRedes() {
                   fontFamily: '"poppins-semibold", sans-serif',
                 }}
                 >
-                  PRÁCTICA 2
+                  {t("networksView.practica", { num: 2 })}
                 </Title>
                 <div
                   style={{
@@ -126,7 +129,7 @@ export default function AlumnosRedes() {
                   fontFamily: '"poppins-semibold", sans-serif',
                 }}
                 >
-                  PRÁCTICA 3
+                  {t("networksView.practica", { num: 3 })}
                 </Title>
                 <div
                   style={{
@@ -168,7 +171,7 @@ export default function AlumnosRedes() {
                   fontFamily: '"poppins-semibold", sans-serif',
                 }}
                 >
-                  PRÁCTICA 4
+                  {t("networksView.practica", { num: 4 })}
                 </Title>
                 <div
                   style={{
@@ -210,7 +213,7 @@ export default function AlumnosRedes() {
                   fontFamily: '"poppins-semibold", sans-serif',
                 }}
                 >
-                  PRÁCTICA 5
+                  {t("networksView.practica", { num: 5 })}
                 </Title>
                 <div
                   style={{
@@ -252,7 +255,7 @@ export default function AlumnosRedes() {
                   fontFamily: '"poppins-semibold", sans-serif',
                 }}
                 >
-                  PRÁCTICA 6 y 7
+                  {t("networksView.practica6y7")}
                 </Title>
                 <div
                   style={{
@@ -294,7 +297,7 @@ export default function AlumnosRedes() {
                   fontFamily: '"poppins-semibold", sans-serif',
                 }}
                 >
-                  PRÁCTICA 8
+                  {t("networksView.practica", { num: 8 })}
                 </Title>
                 <div
                   style={{
@@ -321,7 +324,7 @@ export default function AlumnosRedes() {
             key: "redes2",
             label: (
               <span style={{ fontFamily: '"poppins-bold", sans-serif' }}>
-                PRÁCTICAS DE REDES II
+                {t("networksView.panelRedes2")}
               </span>
             ),
             children: (
@@ -334,7 +337,7 @@ export default function AlumnosRedes() {
                   fontFamily: '"poppins-semibold", sans-serif',
                 }}
                 >
-                  PRÁCTICA 1
+                  {t("networksView.practica", { num: 1 })}
                 </Title>
                 <div
                   style={{
@@ -376,7 +379,7 @@ export default function AlumnosRedes() {
                   fontFamily: '"poppins-semibold", sans-serif',
                 }}
                 >
-                  PRÁCTICA 2
+                  {t("networksView.practica", { num: 2 })}
                 </Title>
                 <div
                   style={{
@@ -418,7 +421,7 @@ export default function AlumnosRedes() {
                   fontFamily: '"poppins-semibold", sans-serif',
                 }}
                 >
-                  PRÁCTICA 3
+                  {t("networksView.practica", { num: 3 })}
                 </Title>
                 <div
                   style={{
@@ -479,7 +482,7 @@ export default function AlumnosRedes() {
                   fontFamily: '"poppins-semibold", sans-serif',
                 }}
                 >
-                  PRÁCTICA 4
+                  {t("networksView.practica", { num: 4 })}
                 </Title>
                 <div
                   style={{

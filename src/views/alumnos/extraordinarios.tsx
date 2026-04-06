@@ -1,4 +1,5 @@
 import { Typography } from "antd";
+import { useTranslation } from "react-i18next";
 import CabeceraTitulo from "../../components/CabeceraTitulo.tsx";
 import pdfExtraLargo from "../../assets/pdf/extra_largo_ico.pdf";
 import pdfExtrasPrimera from "../../assets/pdf/extras_primera_vuelta.pdf";
@@ -24,6 +25,8 @@ const iframeStyle: React.CSSProperties = {
 };
 
 export default function AlumnosExtraordinarios() {
+  const { t } = useTranslation();
+
   return (
     <div
       style={{
@@ -35,30 +38,30 @@ export default function AlumnosExtraordinarios() {
     >
       <div style={{ margin: "-10px -10px 0 -10px" }}>
         <CabeceraTitulo variante="dorado">
-          HORARIOS EXTRAORDINARIOS
+          {t("extraordinariosView.titulo")}
         </CabeceraTitulo>
         <CabeceraTitulo variante="azul" style={{ width: "95%" }}>
-          SEMESTRE 2026 II
+          {t("extraordinariosView.semestre")}
         </CabeceraTitulo>
       </div>
 
       <div style={{ display: "flex", flexDirection: "column", marginTop: 16 }}>
         <div style={bloquePdfStyle}>
           <Title level={4} style={{ marginTop: 0, marginBottom: 16 }}>
-            Extra largo ICO
+            {t("extraordinariosView.extraLargoHeading")}
           </Title>
           <iframe
-            title="PDF Extra largo ICO"
+            title={t("extraordinariosView.extraLargoIframeTitle")}
             src={pdfExtraLargo}
             style={iframeStyle}
           />
         </div>
         <div style={bloquePdfStyle}>
           <Title level={4} style={{ marginTop: 0, marginBottom: 16 }}>
-            Extras primera vuelta
+            {t("extraordinariosView.primeraVueltaHeading")}
           </Title>
           <iframe
-            title="PDF Extras primera vuelta"
+            title={t("extraordinariosView.primeraVueltaIframeTitle")}
             src={pdfExtrasPrimera}
             style={iframeStyle}
           />

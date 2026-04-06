@@ -1,4 +1,5 @@
 import { Typography } from "antd";
+import { useTranslation } from "react-i18next";
 import VistaPreviaDocumento from "../../components/VistaPreviaDocumento.tsx";
 import CabeceraTitulo from "../../components/CabeceraTitulo.tsx";
 import equivalencias from "../../assets/images/formacioncomp.jpg";
@@ -6,6 +7,8 @@ import equivalencias from "../../assets/images/formacioncomp.jpg";
 const { Title } = Typography;
 
 export default function AlumnosFormacion() {
+  const { t } = useTranslation();
+
   return (
     <div
       style={{
@@ -17,15 +20,15 @@ export default function AlumnosFormacion() {
     >
       <div style={{ margin: "-10px -10px 0 -10px" }}>
         <CabeceraTitulo variante="dorado">
-          HORAS DE FORMACIÓN COMPLEMENTARIA
+          {t("formationView.tituloPrincipal")}
         </CabeceraTitulo>
         <CabeceraTitulo variante="azul" style={{ width: "95%" }}>
-          SEMESTRE 2026 II
+          {t("formationView.semestre")}
         </CabeceraTitulo>
       </div>
       <img
         src={equivalencias}
-        alt="Equivalencias de horas de formación complementaria"
+        alt={t("formationView.imagenEquivalenciasAlt")}
         style={{ width: "80%", height: "auto", alignSelf: "center" }}
       />
       <Title
@@ -36,7 +39,7 @@ export default function AlumnosFormacion() {
           fontFamily: '"poppins-semibold", sans-serif',
         }}
       >
-        EQUIVALENCIAS DE HORAS DE FORMACIÓN COMPLEMENTARIA
+        {t("formationView.tituloEquivalencias")}
       </Title>
       <div
         style={{

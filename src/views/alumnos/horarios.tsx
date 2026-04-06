@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import Contenido from "../../components/ContenidoHtml.tsx";
 import CabeceraTitulo from "../../components/CabeceraTitulo.tsx";
 
@@ -613,6 +614,8 @@ cargarSemestre("all");
 `;
 
 export default function AlumnosHorarios() {
+  const { t } = useTranslation();
+
   return (
     <div
       style={{
@@ -623,8 +626,12 @@ export default function AlumnosHorarios() {
       }}
     >
       <div style={{ margin: "-10px -10px 0 -10px" }}>
-        <CabeceraTitulo variante="dorado">HORARIOS DE SEMESTRE 2026 II</CabeceraTitulo>
-        <CabeceraTitulo variante="azul">PLAN 2119</CabeceraTitulo>
+        <CabeceraTitulo variante="dorado">
+          {t("schedulesView.tituloSemestre")}
+        </CabeceraTitulo>
+        <CabeceraTitulo variante="azul">
+          {t("schedulesView.subtituloPlan")}
+        </CabeceraTitulo>
       </div>
       <Contenido html={html} sandbox="allow-same-origin allow-scripts" />
     </div>
