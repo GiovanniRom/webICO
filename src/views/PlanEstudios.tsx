@@ -1,38 +1,29 @@
 import { Row, Col } from "antd";
+import information from "../assets/images/inicio/informationicon.png";
 import planestudios from "../assets/images/plan/planicon.png";
 import perfilingreso from "../assets/images/plan/ingresoicon.png";
 import perfilegreso from "../assets/images/plan/egresoicon.png";
 import malacurricular from "../assets/images/plan/mallaicon.png";
-import cuestionario from "../assets/images/plan/cuestionarioicon.png";
 import TarjetaIconoTitulo from "../components/TarjetaIconoTitulo";
 
 export default function PlanEstudios() {
   return (
     <>
       <Row gutter={[24, 24]} justify="center">
-        <Col xs={24} sm={12} md={8}>
+        <Col xs={24} sm={12} md={12}>
           <TarjetaIconoTitulo
-            icono={<img src={planestudios} alt="Plan de estudios" />}
-            titulo="PLAN DE ESTUDIOS"
-            descripcion="Estructura y secuencia del plan de estudios."
-            href="https://drive.google.com/file/d/1mnPvcATbixSNaC_qd6pNSgXWvtD2N_1M/view"
+            icono={<img src={perfilegreso} alt="Perfil de egreso" />}
+            titulo="PERFIL DE EGRESO"
+            descripcion="Perfil de egreso de la carrera de Ingeniería en Computación."
+            to="/plan/egreso"
           />
         </Col>
-        <Col xs={24} sm={12} md={8}>
+        <Col xs={24} sm={12} md={12}>
           <TarjetaIconoTitulo
             icono={<img src={perfilingreso} alt="Perfil de ingreso" />}
             titulo="PERFIL DE INGRESO"
             descripcion="Perfil de ingreso a la carrera de Ingeniería en Computación."
             to="/plan/ingreso"
-          />
-        </Col>
-
-        <Col xs={24} sm={12} md={8}>
-          <TarjetaIconoTitulo
-            icono={<img src={cuestionario} alt="Cuestionario" />}
-            titulo="CUESTIONARIO"
-            descripcion="Cuestionarios para la actualización del plan de estudios."
-            to="/plan/cuestionario"
           />
         </Col>
       </Row>
@@ -47,10 +38,18 @@ export default function PlanEstudios() {
         </Col>
         <Col xs={24} sm={12} md={8}>
           <TarjetaIconoTitulo
-            icono={<img src={perfilegreso} alt="Perfil de egreso" />}
-            titulo="PERFIL DE EGRESO"
-            descripcion="Perfil de egreso de la carrera de Ingeniería en Computación."
-            to="/plan/egreso"
+            icono={<img src={planestudios} alt="Plan de estudios" />}
+            titulo="PLAN DE ESTUDIOS"
+            descripcion="Estructura y secuencia del plan de estudios."
+            href="https://drive.google.com/file/d/1mnPvcATbixSNaC_qd6pNSgXWvtD2N_1M/view"
+          />
+        </Col>
+        <Col xs={24} sm={12} md={8}>
+          <TarjetaIconoTitulo
+            icono={<img src={information} alt="Información" />}
+            titulo="INFORMACIÓN"
+            descripcion="Conoce la información de la Facultad de Estudios Superiores Aragón."
+            to="/informacion"
           />
         </Col>
       </Row>

@@ -18,12 +18,18 @@ const { useBreakpoint } = Grid;
 /** Ancho mínimo del viewport para mostrar el menú horizontal (por debajo: hamburguesa). */
 const ANCHO_MIN_MENU_HORIZONTAL_PX = 1300;
 
+/** Altura máxima de la franja de logos (viewport ≥ md, logos en una fila). */
+const CABECERA_LOGOS_MAX_ALTURA_PX = 176;
+/** En pantallas pequeñas los logos suelen apilarse; se permite más altura para no recortar. */
+const CABECERA_LOGOS_MAX_ALTURA_MOVIL_PX = 300;
+/** Altura máxima de cada imagen de logo dentro de la cabecera. */
+const CABECERA_LOGO_IMG_MAX_ALTURA_PX = 128;
+const CABECERA_LOGO_IMG_MAX_ALTURA_MOVIL_PX = 112;
+
 const items = [
   { key: "/", label: "Inicio" },
-  { key: "/informacion", label: "Información" },
   { key: "/alumnos", label: "Alumnos" },
   { key: "/plan-estudios", label: "Plan de estudios" },
-  { key: "/guia-titulacion", label: "Guía de titulación" },
   { key: "/profesores", label: "Profesores" },
   { key: "/egresados", label: "Egresados" },
   { key: "/ligas-interes", label: "Ligas de interés" },
@@ -50,6 +56,13 @@ export default function MainLayout() {
   }, []);
 
   const esPantallaPequena = !screens.md;
+  const cabeceraLogosMaxAlturaPx = esPantallaPequena
+    ? CABECERA_LOGOS_MAX_ALTURA_MOVIL_PX
+    : CABECERA_LOGOS_MAX_ALTURA_PX;
+  const cabeceraLogoImgMaxAlturaPx = esPantallaPequena
+    ? CABECERA_LOGO_IMG_MAX_ALTURA_MOVIL_PX
+    : CABECERA_LOGO_IMG_MAX_ALTURA_PX;
+
   const handleItemClick = (key: string) => {
     navigate(key);
     setDrawerAbierto(false);
@@ -190,6 +203,8 @@ export default function MainLayout() {
           backgroundAttachment: "fixed",
           overflow: "hidden",
           maxWidth: "100vw",
+          maxHeight: cabeceraLogosMaxAlturaPx,
+          boxSizing: "border-box",
         }}
       >
         <img
@@ -200,6 +215,7 @@ export default function MainLayout() {
             height: "auto",
             width: "750px",
             maxWidth: "100%",
+            maxHeight: cabeceraLogoImgMaxAlturaPx,
             minWidth: 0,
             objectFit: "contain",
           }}
@@ -212,6 +228,7 @@ export default function MainLayout() {
             height: "auto",
             width: "400px",
             maxWidth: "100%",
+            maxHeight: cabeceraLogoImgMaxAlturaPx,
             minWidth: 0,
             objectFit: "contain",
           }}

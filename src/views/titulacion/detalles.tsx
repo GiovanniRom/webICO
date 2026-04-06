@@ -4,6 +4,7 @@ import cartaterminossfes from "../../assets/images/documentos/cartaterminossfes.
 import constanciaidioma from "../../assets/images/documentos/constanciaidioma.png";
 import constanciahoras from "../../assets/images/documentos/constanciahoras.png";
 import certificadoestudios from "../../assets/images/documentos/certificadoestudios.png";
+import certificadocch from "../../assets/images/documentos/certificadocch.png";
 
 export type DetalleRequisito = {
   id: string;
@@ -62,6 +63,16 @@ export const DETALLES_REQUISITOS: DetalleRequisito[] = [
       </>
     ),
     imagen: certificadoestudios,
+  },
+  {
+    id: "requisitos-minimos-r9",
+    descripcion:
+      "Es el certificado íntegro de estudios del bachillerato emitido por un plantel del Colegio de Ciencias y Humanidades (CCH) de la UNAM. " +
+      "Acredita de forma oficial tu trayectoria en el nivel medio superior cuando cursaste el bachillerato en el CCH.\n\n" +
+      "Este documento es opcional en la guía: solo aplica si a tu caso le corresponde presentarlo o si servicios escolares o la jefatura de carrera lo solicitan como parte de la revisión de estudios. " +
+      "Si no cursaste el bachillerato en el CCH, no necesitas este certificado.\n\n" +
+      "Para tramitarlo o solicitar información, acude al plantel CCH donde cursaste el bachillerato o consulta los lineamientos de certificación escolar de la UNAM.",
+    imagen: certificadocch,
   },
   {
     id: "modalidad-a-r1",

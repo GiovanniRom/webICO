@@ -25,10 +25,10 @@ export default function Egresados() {
       </Col>
       <Col xs={24} sm={12} md={8}>
         <TarjetaIconoTitulo
-          icono={<img src={titulacion} alt="Titulación" />}
-          titulo="TIPOS DE TITULACIÓN"
-          descripcion="Conoce información relevante para el proceso de titulación de los planes de estudios 1279 y 2119."
-          href="https://www.aragon.unam.mx/fes-aragon/#!/oferta-academica/licenciaturas/computacion-titulacion"
+          icono={<img src={titulacion} alt="Guía de titulación" />}
+          titulo="GUÍA DE TITULACIÓN"
+          descripcion="Requisitos, modalidades y pasos del proceso de titulación en un solo lugar dentro del sitio de la carrera."
+          to="/guia-titulacion"
         />
       </Col>
     </Row>

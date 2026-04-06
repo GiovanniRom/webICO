@@ -4,17 +4,23 @@ import {
   Collapse,
   Divider,
   Progress,
-  Steps,
   Typography,
 } from "antd";
 import { useMemo, useState, type ReactNode } from "react";
 import CabeceraTitulo from "../components/CabeceraTitulo.tsx";
 import ModalRequisitoDetalles from "./titulacion/ModalRequisitoDetalles";
+import diagramaProcesoTitulacion from "../assets/images/documentos/procesodetitulaciondiagrama.png";
 
 type Requisito = {
   id: string;
   texto: string;
+  /** Si es true, no cuenta en los porcentajes de avance (solo informativo). */
+  opcional?: boolean;
 };
+
+function requisitosQueCuentanProgreso(lista: Requisito[]): Requisito[] {
+  return lista.filter((r) => !r.opcional);
+}
 
 type GrupoRequisitos = {
   id: string;
@@ -24,26 +30,18 @@ type GrupoRequisitos = {
   requisitos: Requisito[];
 };
 
-/** Etapas para la vista de diagrama de flujo (sin checkboxes) */
-type EtapaFlujo = {
-  titulo: string;
-  pasos: string[];
-};
-
 type Seccion = {
   id: string;
   titulo: string;
   descripcion: string;
-  /** Lista plana cuando no hay `grupos` ni `etapasFlujo` */
+  /** Lista plana cuando no hay `grupos` */
   requisitos: Requisito[];
   /** Si existe, los requisitos se muestran agrupados en colapsables anidados */
   grupos?: GrupoRequisitos[];
-  /** Si existe, se muestra un diagrama de flujo por etapas en lugar de requisitos */
-  etapasFlujo?: EtapaFlujo[];
 };
 
 function requisitosDeSeccion(seccion: Seccion): Requisito[] {
-  if (seccion.etapasFlujo && seccion.etapasFlujo.length > 0) {
+  if (seccion.id === "flujo") {
     return [];
   }
   if (seccion.grupos && seccion.grupos.length > 0) {
@@ -58,7 +56,7 @@ function requisitosModalidadParaProgreso(
   alternativaGrupoId: string | null,
 ): Requisito[] {
   if (!seccion) return [];
-  if (seccion.etapasFlujo && seccion.etapasFlujo.length > 0) {
+  if (seccion.id === "flujo") {
     return [];
   }
   if (seccion.grupos && seccion.grupos.length > 0) {
@@ -69,7 +67,7 @@ function requisitosModalidadParaProgreso(
   return seccion.requisitos;
 }
 
-function renderFlujoDiagrama(etapas: EtapaFlujo[]) {
+function renderDiagramaProcesoTitulacion() {
   return (
     <div
       style={{
@@ -80,40 +78,16 @@ function renderFlujoDiagrama(etapas: EtapaFlujo[]) {
         border: "1px solid rgba(0, 47, 108, 0.12)",
       }}
     >
-      <Steps
-        orientation="vertical"
-        size="small"
-        current={-1}
-        items={etapas.map((etapa) => ({
-          title: (
-            <span
-              style={{
-                fontFamily: '"poppins-semibold", sans-serif',
-                color: "#001529",
-                fontSize: 15,
-              }}
-            >
-              {etapa.titulo}
-            </span>
-          ),
-          description: (
-            <ul
-              style={{
-                margin: "8px 0 0",
-                paddingLeft: 18,
-                fontFamily: '"poppins-regular", sans-serif',
-                color: "rgba(0, 21, 41, 0.92)",
-                fontSize: 14,
-              }}
-            >
-              {etapa.pasos.map((p) => (
-                <li key={`${etapa.titulo}-${p}`} style={{ marginBottom: 6 }}>
-                  {p}
-                </li>
-              ))}
-            </ul>
-          ),
-        }))}
+      <img
+        src={diagramaProcesoTitulacion}
+        alt="Diagrama del proceso de titulación"
+        style={{
+          width: "100%",
+          maxWidth: "100%",
+          height: "auto",
+          display: "block",
+          borderRadius: 6,
+        }}
       />
     </div>
   );
@@ -147,6 +121,11 @@ const SECCIONES: Seccion[] = [
       {
         id: "requisitos-minimos-r8",
         texto: "Certificado de estudios",
+      },
+      {
+        id: "requisitos-minimos-r9",
+        texto: "Certificado de estudios CCH (opcional)",
+        opcional: true,
       },
     ],
   },
@@ -387,59 +366,6 @@ const SECCIONES: Seccion[] = [
     descripcion:
       "Flujo en etapas: preparación, pre-registro, procesos en paralelo, desarrollo según modalidad, validación ante instancias correspondientes y cierre final del trámite.",
     requisitos: [],
-    etapasFlujo: [
-      {
-        titulo: "ETAPA 1",
-        pasos: [
-          "Terminar créditos (SIAE)",
-          "Liberar servicio social",
-          "Constancia de idioma acreditando nivel B1",
-          "Horas complementarias",
-          "Definir modalidad (según objetivos personales)",
-        ],
-      },
-      {
-        titulo: "ETAPA 2",
-        pasos: [
-          "Elegir modalidad",
-          "Reunir documentos en un unico archivo PDF",
-          "Enviar PDF identificado con nombre y numero de cuenta por correo a titulacion.computacion@aragon.unam.mx",
-        ],
-      },
-      {
-        titulo: "ETAPA 3",
-        pasos: [
-          "Iniciar revisión de estudios",
-          "Tramitar certificado de estudios",
-          "(Si aplica) iniciar diplomado / tesis / examen",
-        ],
-      },
-      {
-        titulo: "ETAPA 4",
-        pasos: [
-          "Tesis → desarrollar + asesor",
-          "Servicio social → realizar + documentar",
-          "Diplomado → cursar",
-          "Examen → presentar",
-        ],
-      },
-      {
-        titulo: "ETAPA 5",
-        pasos: [
-          "Entregar documentos completos",
-          "Revisión por jefatura",
-          "Validación en servicios escolares",
-        ],
-      },
-      {
-        titulo: "ETAPA 6",
-        pasos: [
-          "Registro de titulación",
-          "Protesta universitaria",
-          "Expedición de título",
-        ],
-      },
-    ],
   },
 ];
 
@@ -463,13 +389,17 @@ export default function GuiaTitulacion() {
     useState<Requisito | null>(null);
 
   const porcentajeGeneral = useMemo(() => {
-    const requisitosMinimos = SECCIONES[0]?.requisitos ?? [];
+    const requisitosMinimos = requisitosQueCuentanProgreso(
+      SECCIONES[0]?.requisitos ?? [],
+    );
     const seccionModalidad =
       modalidadSeleccionadaId &&
       SECCIONES_MODALIDAD.find((s) => s.id === modalidadSeleccionadaId);
-    const requisitosModalidad = requisitosModalidadParaProgreso(
-      seccionModalidad || undefined,
-      alternativaGrupoId,
+    const requisitosModalidad = requisitosQueCuentanProgreso(
+      requisitosModalidadParaProgreso(
+        seccionModalidad || undefined,
+        alternativaGrupoId,
+      ),
     );
 
     const todos = [...requisitosMinimos, ...requisitosModalidad];
@@ -527,8 +457,9 @@ export default function GuiaTitulacion() {
   const progresoGrupoAlternativa = useMemo(() => {
     const g = grupoAlternativaSeleccionado;
     if (!g) return { total: 0, completados: 0, porcentaje: 0 };
-    const total = g.requisitos.length;
-    const completados = g.requisitos.reduce(
+    const reqs = requisitosQueCuentanProgreso(g.requisitos);
+    const total = reqs.length;
+    const completados = reqs.reduce(
       (acc, r) => acc + (checkedMap[r.id] ? 1 : 0),
       0,
     );
@@ -587,16 +518,15 @@ export default function GuiaTitulacion() {
   const construirItemsCollapse = (secciones: Seccion[]) =>
     secciones.map((seccion) => {
       const listaReq = requisitosDeSeccion(seccion);
-      const total = listaReq.length;
-      const completados = listaReq.reduce(
+      const listaProgreso = requisitosQueCuentanProgreso(listaReq);
+      const total = listaProgreso.length;
+      const completados = listaProgreso.reduce(
         (acc, r) => acc + (checkedMap[r.id] ? 1 : 0),
         0,
       );
       const porcentaje =
         total === 0 ? 0 : Math.round((completados / total) * 100);
-      const esFlujoInformativo = Boolean(
-        seccion.etapasFlujo && seccion.etapasFlujo.length > 0,
-      );
+      const esFlujoInformativo = seccion.id === "flujo";
 
       return {
         key: seccion.id,
@@ -648,9 +578,7 @@ export default function GuiaTitulacion() {
             >
               {seccion.descripcion}
             </Paragraph>
-            {esFlujoInformativo && seccion.etapasFlujo
-              ? renderFlujoDiagrama(seccion.etapasFlujo)
-              : null}
+            {esFlujoInformativo ? renderDiagramaProcesoTitulacion() : null}
             {!esFlujoInformativo &&
             seccion.grupos &&
             seccion.grupos.length > 0 ? (
@@ -659,8 +587,9 @@ export default function GuiaTitulacion() {
                 defaultActiveKey={seccion.grupos.map((g) => g.id)}
                 style={{ marginTop: 4 }}
                 items={seccion.grupos.map((grupo) => {
-                  const totalG = grupo.requisitos.length;
-                  const completadosG = grupo.requisitos.reduce(
+                  const reqsG = requisitosQueCuentanProgreso(grupo.requisitos);
+                  const totalG = reqsG.length;
+                  const completadosG = reqsG.reduce(
                     (acc, r) => acc + (checkedMap[r.id] ? 1 : 0),
                     0,
                   );
@@ -929,10 +858,8 @@ export default function GuiaTitulacion() {
         }}
       >
         Esta sección muestra los requisitos para titulación que debes cumplir
-        para obtener tu título. Marca con check los requisitos que ya tienes. El
-        porcentaje por sección y el progreso general se actualizan
-        automáticamente. Si tienes alguna duda, revisa la sección de detalles de
-        cada requisito para obtener más información.
+        para obtener tu título. Si tienes alguna duda, revisa la sección de
+        detalles de cada requisito para obtener más información.
       </Paragraph>
 
       <div
@@ -980,28 +907,6 @@ export default function GuiaTitulacion() {
           strokeColor="#ba9a3a"
         />
       </div>
-
-      <Paragraph
-        style={{
-          margin: 0,
-          fontFamily: '"poppins-regular", sans-serif',
-          textAlign: "justify",
-        }}
-      >
-        Marca con check los requisitos que ya tienes. El porcentaje por sección
-        y el progreso general se actualizan automáticamente.
-      </Paragraph>
-      <Paragraph
-        style={{
-          margin: 0,
-          fontFamily: '"poppins-regular", sans-serif',
-          textAlign: "justify",
-        }}
-      >
-        Nota: todo documento que sea requisito para una modalidad y sea emitido
-        de forma digital deberá imprimirse en papel opalina a color con
-        excelente calidad.
-      </Paragraph>
 
       <Collapse
         bordered={false}
