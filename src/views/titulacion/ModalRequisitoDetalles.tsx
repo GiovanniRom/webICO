@@ -1,7 +1,7 @@
 import { Button, Modal } from "antd";
-import { useState } from "react";
-import type { DetalleRequisito } from "./detalles";
-import { DETALLES_REQUISITOS } from "./detalles";
+import { useMemo, useState } from "react";
+import { useTranslation } from "react-i18next";
+import { construirDetallesRequisitos, type DetalleRequisito } from "./detalles";
 
 type ModalRequisitoDetallesProps = {
   readonly open: boolean;
@@ -16,16 +16,19 @@ export default function ModalRequisitoDetalles({
   requisitoId,
   requisitoTexto,
 }: ModalRequisitoDetallesProps) {
+  const { t } = useTranslation();
   const [mostrarEjemplo, setMostrarEjemplo] = useState(false);
 
-  const detalle: DetalleRequisito | undefined = DETALLES_REQUISITOS.find(
+  const detalles = useMemo(() => construirDetallesRequisitos(t), [t]);
+
+  const detalle: DetalleRequisito | undefined = detalles.find(
     (d) => d.id === requisitoId,
   );
 
   return (
     <Modal
       open={open}
-      title="Detalles del requisito"
+      title={t("graduationGuide.modal.title")}
       footer={null}
       onCancel={onClose}
       destroyOnHidden
@@ -43,7 +46,9 @@ export default function ModalRequisitoDetalles({
 
       {detalle ? (
         <div style={{ fontFamily: '"poppins-regular", sans-serif' }}>
-          <div style={{ whiteSpace: "pre-line" }}>{detalle.descripcion}</div>
+          <div style={{ whiteSpace: "pre-line" }}>
+            {detalle.descripcion}
+          </div>
 
           {detalle.imagen ? (
             <div style={{ marginTop: 16 }}>
@@ -56,7 +61,9 @@ export default function ModalRequisitoDetalles({
                   borderColor: "#ba9a3a",
                 }}
               >
-                {mostrarEjemplo ? "Ocultar ejemplo" : "Ver ejemplo"}
+                {mostrarEjemplo
+                  ? t("graduationGuide.modal.ocultarEjemplo")
+                  : t("graduationGuide.modal.verEjemplo")}
               </Button>
 
               {mostrarEjemplo ? (
@@ -70,7 +77,7 @@ export default function ModalRequisitoDetalles({
                 >
                   <img
                     src={detalle.imagen}
-                    alt="Ejemplo del requisito"
+                    alt={t("graduationGuide.modal.ejemploAlt")}
                     style={{
                       width: "100%",
                       maxWidth: 520,
@@ -86,16 +93,20 @@ export default function ModalRequisitoDetalles({
         </div>
       ) : (
         <div style={{ color: "rgba(0,0,0,0.65)" }}>
-          No hay información adicional para este requisito todavía.
+          {t("graduationGuide.modal.sinInfoExtra")}
         </div>
       )}
 
-      <div style={{ display: "flex", justifyContent: "flex-end", marginTop: 16 }}>
-        <Button onClick={onClose} style={{ fontFamily: '"poppins-semibold", sans-serif' }}>
-          Cerrar
+      <div
+        style={{ display: "flex", justifyContent: "flex-end", marginTop: 16 }}
+      >
+        <Button
+          onClick={onClose}
+          style={{ fontFamily: '"poppins-semibold", sans-serif' }}
+        >
+          {t("graduationGuide.modal.cerrar")}
         </Button>
       </div>
     </Modal>
   );
 }
-

@@ -1,3 +1,5 @@
+import graduationGuide from "./graduationGuide.en";
+
 /** English UI strings (default namespace `translation`). */
 const en = {
   nav: {
@@ -280,6 +282,7 @@ const en = {
         "Be a cutting-edge programme that keeps faculty, infrastructure, and study plans constantly updated, preparing computer engineers who can respond to the country's changing needs.",
     },
   },
+  graduationGuide,
 } as const;
 
 export default en;

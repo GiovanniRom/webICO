@@ -1,3 +1,5 @@
+import graduationGuide from "./graduationGuide.es";
+
 /** Textos en español (namespace por defecto `translation`). */
 const es = {
   nav: {
@@ -285,6 +287,7 @@ const es = {
         "Ser una carrera de vanguardia que asegure la actualización constante de su planta docente, infraestructura y planes de estudio, para formar Ingenieros en Computación capaces de responder a los cambios que demande el país.",
     },
   },
+  graduationGuide,
 } as const;
 
 export default es;

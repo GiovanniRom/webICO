@@ -6,7 +6,9 @@ import {
   Progress,
   Typography,
 } from "antd";
+import type { TFunction } from "i18next";
 import { useMemo, useState, type ReactNode } from "react";
+import { useTranslation } from "react-i18next";
 import CabeceraTitulo from "../components/CabeceraTitulo.tsx";
 import ModalRequisitoDetalles from "./titulacion/ModalRequisitoDetalles";
 import diagramaProcesoTitulacion from "../assets/images/documentos/procesodetitulaciondiagrama.png";
@@ -67,7 +69,7 @@ function requisitosModalidadParaProgreso(
   return seccion.requisitos;
 }
 
-function renderDiagramaProcesoTitulacion() {
+function renderDiagramaProcesoTitulacion(diagramAlt: string) {
   return (
     <div
       style={{
@@ -80,7 +82,7 @@ function renderDiagramaProcesoTitulacion() {
     >
       <img
         src={diagramaProcesoTitulacion}
-        alt="Diagrama del proceso de titulación"
+        alt={diagramAlt}
         style={{
           width: "100%",
           maxWidth: "100%",
@@ -93,290 +95,288 @@ function renderDiagramaProcesoTitulacion() {
   );
 }
 
-// Placeholder: cuando me compartas la estructura general de tu documento,
-// reemplazamos este arreglo por las secciones y requisitos reales.
-const SECCIONES: Seccion[] = [
-  {
-    id: "requisitos-minimos",
-    titulo: "Requisitos mínimos para iniciar titulación",
-    descripcion:
-      "Estos requisitos aplican prácticamente para todas las modalidades. Antes de elegir una modalidad, asegúrate de tener base obligatoria y documentos comunes listos para continuar con el proceso.",
-    requisitos: [
-      {
-        id: "requisitos-minimos-r1",
-        texto: "Historial académico con 100% de créditos",
-      },
-      {
-        id: "requisitos-minimos-r3",
-        texto: "Carta de liberación de servicio social",
-      },
-      {
-        id: "requisitos-minimos-r4",
-        texto: "Constancia de acreditación de idioma inglés",
-      },
-      {
-        id: "requisitos-minimos-r5",
-        texto: "Constancia de horas de formación complementaria (480 hrs)",
-      },
-      {
-        id: "requisitos-minimos-r8",
-        texto: "Certificado de estudios",
-      },
-      {
-        id: "requisitos-minimos-r9",
-        texto: "Certificado de estudios CCH (opcional)",
-        opcional: true,
-      },
-    ],
-  },
-  {
-    id: "modalidad-a",
-    titulo: "Modalidad: Con trabajo escrito con réplica oral",
-    descripcion:
-      "Modalidad en la que presentas un trabajo escrito y realizas una réplica oral ante jurado. Incluye componentes de tesis/tesina y una actividad de investigación.",
-    requisitos: [],
-    grupos: [
-      {
-        id: "modalidad-a-g-tesis",
-        titulo: "Tesis / Tesina",
-        descripcion:
-          "Trabajo escrito de investigación y su defensa oral ante jurado, según las etapas que marca tu plan de estudios.",
-        requisitos: [
-          {
-            id: "modalidad-a-r1",
-            texto: "Selección de tutor aprobado por el comité académico",
-          },
-          {
-            id: "modalidad-a-r2",
-            texto: "Registro formal de proyecto ante jefatura",
-          },
-          {
-            id: "modalidad-a-r3",
-            texto: "Aprobación de borrador final por el tutor",
-          },
-          {
-            id: "modalidad-a-r4",
-            texto: "Defensa oral ante jurado",
-          },
-        ],
-      },
-      {
-        id: "modalidad-a-g-investigacion",
-        titulo: "Actividad de investigación",
-        descripcion:
-          "Participación en un proyecto de investigación y presentación de resultados ante jurado.",
-        requisitos: [
-          {
-            id: "modalidad-a-r5",
-            texto: "Participación certificada en proyecto (mín. 1 semestre)",
-          },
-          {
-            id: "modalidad-a-r6",
-            texto: "Informe detallado de actividades y resultados",
-          },
-          {
-            id: "modalidad-a-r7",
-            texto: "Presentación y defensa de resultados",
-          },
-        ],
-      },
-    ],
-  },
-  {
-    id: "modalidad-b",
-    titulo: "Modalidad: Con trabajo escrito sin réplica oral",
-    descripcion:
-      "Modalidad con trabajo escrito, pero sin réplica oral. Se enfoca en experiencia o actividades profesionales/docentes, complementado con servicio social y un artículo académico.",
-    requisitos: [],
-    grupos: [
-      {
-        id: "modalidad-b-g-docencia",
-        titulo: "Apoyo a la docencia",
-        descripcion:
-          "Apoyo a la docencia en la facultad: elaboración de material y acompañamiento con asesor docente.",
-        requisitos: [
-          {
-            id: "modalidad-b-r1",
-            texto: "Crear material didáctico",
-          },
-          {
-            id: "modalidad-b-r2",
-            texto: "Selección de asesor docente",
-          },
-        ],
-      },
-      {
-        id: "modalidad-b-g-profesional",
-        titulo: "Trabajo profesional",
-        descripcion:
-          "Experiencia laboral acreditable y documentación del trabajo realizado en el ámbito profesional.",
-        requisitos: [
-          {
-            id: "modalidad-b-r3",
-            texto: "2 años de experiencia laboral",
-          },
-          {
-            id: "modalidad-b-r4",
-            texto: "Informe del trabajo realizado",
-          },
-        ],
-      },
-      {
-        id: "modalidad-b-g-ss",
-        titulo: "Servicio social",
-        descripcion:
-          "Cumplimiento del servicio social y entrega de la documentación que exige esta modalidad.",
-        requisitos: [
-          {
-            id: "modalidad-b-r5",
-            texto: "Haber cumplido 100% créditos",
-          },
-          {
-            id: "modalidad-b-r6",
-            texto: "Constancia de acreditación de idioma inglés.",
-          },
-          {
-            id: "modalidad-b-r7",
-            texto: "Horas complementarias",
-          },
-          {
-            id: "modalidad-b-r8",
-            texto: "Informe de actividades",
-          },
-          {
-            id: "modalidad-b-r9",
-            texto: "Carta de término y liberación de servicio social",
-          },
-        ],
-      },
-      {
-        id: "modalidad-b-g-articulo",
-        titulo: "Artículo académico",
-        descripcion:
-          "Publicación en revista indexada y constancia de autoría o coautoría del artículo.",
-        requisitos: [
-          {
-            id: "modalidad-b-r10",
-            texto: "Publicación en revista indexada",
-          },
-          {
-            id: "modalidad-b-r11",
-            texto: "Autor o coautor",
-          },
-        ],
-      },
-    ],
-  },
-  {
-    id: "modalidad-c",
-    titulo: "Modalidad: Sin trabajo escrito",
-    descripcion:
-      "Modalidad donde no se desarrolla un trabajo escrito. Se cubren requisitos base y se realiza un examen general (CENEVAL/EGEL) y condiciones de desempeño, con posibilidad de posgrado, ampliación y/o diplomado.",
-    requisitos: [],
-    grupos: [
-      {
-        id: "modalidad-c-g-ceneval",
-        titulo: "Examen general (CENEVAL)",
-        descripcion:
-          "Requisitos del examen general de egreso (EGEL/CENEVAL) y testimonios de desempeño.",
-        requisitos: [
-          {
-            id: "modalidad-c-r2",
-            texto: "Comprobante aprobatorio emitido por EGEL",
-          },
-          {
-            id: "modalidad-c-r3",
-            texto: "Constancia oficial de resultados",
-          },
-        ],
-      },
-      {
-        id: "modalidad-c-g-alto",
-        titulo: "Alto nivel académico",
-        descripcion:
-          "Criterios de excelencia académica: promedio, historial sin reprobadas y conclusión en tiempo curricular.",
-        requisitos: [
-          {
-            id: "modalidad-c-r4",
-            texto: "Promedio ≥ 9.5",
-          },
-          {
-            id: "modalidad-c-r5",
-            texto: "Sin materias reprobadas",
-          },
-          {
-            id: "modalidad-c-r6",
-            texto: "Terminar en tiempo curricular",
-          },
-        ],
-      },
-      {
-        id: "modalidad-c-g-posgrado",
-        titulo: "Estudios de posgrado",
-        descripcion:
-          "Ingreso y permanencia en programas de posgrado reconocidos y autorizados.",
-        requisitos: [
-          {
-            id: "modalidad-c-r7",
-            texto: "Ingreso a posgrado válido",
-          },
-          {
-            id: "modalidad-c-r8",
-            texto:
-              "Comprobante de acreditación satisfactoria del primer semestre",
-          },
-        ],
-      },
-      {
-        id: "modalidad-c-g-ampliacion",
-        titulo: "Ampliación y profundización",
-        descripcion:
-          "Cursos adicionales para ampliar y profundizar competencias, con promedio mínimo requerido. " +
-          "Se cuenta con un período máximo de un año, contado a partir de haber terminado el 100% de los créditos, para inscribir esta modalidad de titulación.",
-        requisitos: [
-          {
-            id: "modalidad-c-r9",
-            texto: "Cursar materias extra (~10% créditos)",
-          },
-          {
-            id: "modalidad-c-r10",
-            texto: "Promedio mínimo 9",
-          },
-        ],
-      },
-      {
-        id: "modalidad-c-g-diplomado",
-        titulo: "Diplomado",
-        descripcion:
-          "Diplomado con carga horaria, calificación mínima y validación por comité correspondiente.",
-        requisitos: [
-          { id: "modalidad-c-r11", texto: "Mínimo 240 horas" },
-          { id: "modalidad-c-r12", texto: "Promedio mínimo 8" },
-          {
-            id: "modalidad-c-r13",
-            texto: "Debe estar aprobado por comité",
-          },
-        ],
-      },
-    ],
-  },
-  {
-    id: "flujo",
-    titulo: "Flujo completo del proceso de titulación",
-    descripcion:
-      "Flujo en etapas: preparación, pre-registro, procesos en paralelo, desarrollo según modalidad, validación ante instancias correspondientes y cierre final del trámite.",
-    requisitos: [],
-  },
-];
+function construirSecciones(t: TFunction): Seccion[] {
+  return [
+    {
+      id: "requisitos-minimos",
+      titulo: t("graduationGuide.sec.requisitos-minimos.title"),
+      descripcion: t("graduationGuide.sec.requisitos-minimos.desc"),
+      requisitos: [
+        {
+          id: "requisitos-minimos-r1",
+          texto: t("graduationGuide.req.requisitos-minimos-r1"),
+        },
+        {
+          id: "requisitos-minimos-r3",
+          texto: t("graduationGuide.req.requisitos-minimos-r3"),
+        },
+        {
+          id: "requisitos-minimos-r4",
+          texto: t("graduationGuide.req.requisitos-minimos-r4"),
+        },
+        {
+          id: "requisitos-minimos-r5",
+          texto: t("graduationGuide.req.requisitos-minimos-r5"),
+        },
+        {
+          id: "requisitos-minimos-r8",
+          texto: t("graduationGuide.req.requisitos-minimos-r8"),
+        },
+        {
+          id: "requisitos-minimos-r9",
+          texto: t("graduationGuide.req.requisitos-minimos-r9"),
+          opcional: true,
+        },
+      ],
+    },
+    {
+      id: "modalidad-a",
+      titulo: t("graduationGuide.sec.modalidad-a.title"),
+      descripcion: t("graduationGuide.sec.modalidad-a.desc"),
+      requisitos: [],
+      grupos: [
+        {
+          id: "modalidad-a-g-tesis",
+          titulo: t("graduationGuide.grp.modalidad-a-g-tesis.title"),
+          descripcion: t("graduationGuide.grp.modalidad-a-g-tesis.desc"),
+          requisitos: [
+            {
+              id: "modalidad-a-r1",
+              texto: t("graduationGuide.req.modalidad-a-r1"),
+            },
+            {
+              id: "modalidad-a-r2",
+              texto: t("graduationGuide.req.modalidad-a-r2"),
+            },
+            {
+              id: "modalidad-a-r3",
+              texto: t("graduationGuide.req.modalidad-a-r3"),
+            },
+            {
+              id: "modalidad-a-r4",
+              texto: t("graduationGuide.req.modalidad-a-r4"),
+            },
+          ],
+        },
+        {
+          id: "modalidad-a-g-investigacion",
+          titulo: t("graduationGuide.grp.modalidad-a-g-investigacion.title"),
+          descripcion: t(
+            "graduationGuide.grp.modalidad-a-g-investigacion.desc",
+          ),
+          requisitos: [
+            {
+              id: "modalidad-a-r5",
+              texto: t("graduationGuide.req.modalidad-a-r5"),
+            },
+            {
+              id: "modalidad-a-r6",
+              texto: t("graduationGuide.req.modalidad-a-r6"),
+            },
+            {
+              id: "modalidad-a-r7",
+              texto: t("graduationGuide.req.modalidad-a-r7"),
+            },
+          ],
+        },
+      ],
+    },
+    {
+      id: "modalidad-b",
+      titulo: t("graduationGuide.sec.modalidad-b.title"),
+      descripcion: t("graduationGuide.sec.modalidad-b.desc"),
+      requisitos: [],
+      grupos: [
+        {
+          id: "modalidad-b-g-docencia",
+          titulo: t("graduationGuide.grp.modalidad-b-g-docencia.title"),
+          descripcion: t("graduationGuide.grp.modalidad-b-g-docencia.desc"),
+          requisitos: [
+            {
+              id: "modalidad-b-r1",
+              texto: t("graduationGuide.req.modalidad-b-r1"),
+            },
+            {
+              id: "modalidad-b-r2",
+              texto: t("graduationGuide.req.modalidad-b-r2"),
+            },
+          ],
+        },
+        {
+          id: "modalidad-b-g-profesional",
+          titulo: t("graduationGuide.grp.modalidad-b-g-profesional.title"),
+          descripcion: t("graduationGuide.grp.modalidad-b-g-profesional.desc"),
+          requisitos: [
+            {
+              id: "modalidad-b-r3",
+              texto: t("graduationGuide.req.modalidad-b-r3"),
+            },
+            {
+              id: "modalidad-b-r4",
+              texto: t("graduationGuide.req.modalidad-b-r4"),
+            },
+          ],
+        },
+        {
+          id: "modalidad-b-g-ss",
+          titulo: t("graduationGuide.grp.modalidad-b-g-ss.title"),
+          descripcion: t("graduationGuide.grp.modalidad-b-g-ss.desc"),
+          requisitos: [
+            {
+              id: "modalidad-b-r5",
+              texto: t("graduationGuide.req.modalidad-b-r5"),
+            },
+            {
+              id: "modalidad-b-r6",
+              texto: t("graduationGuide.req.modalidad-b-r6"),
+            },
+            {
+              id: "modalidad-b-r7",
+              texto: t("graduationGuide.req.modalidad-b-r7"),
+            },
+            {
+              id: "modalidad-b-r8",
+              texto: t("graduationGuide.req.modalidad-b-r8"),
+            },
+            {
+              id: "modalidad-b-r9",
+              texto: t("graduationGuide.req.modalidad-b-r9"),
+            },
+          ],
+        },
+        {
+          id: "modalidad-b-g-articulo",
+          titulo: t("graduationGuide.grp.modalidad-b-g-articulo.title"),
+          descripcion: t("graduationGuide.grp.modalidad-b-g-articulo.desc"),
+          requisitos: [
+            {
+              id: "modalidad-b-r10",
+              texto: t("graduationGuide.req.modalidad-b-r10"),
+            },
+            {
+              id: "modalidad-b-r11",
+              texto: t("graduationGuide.req.modalidad-b-r11"),
+            },
+          ],
+        },
+      ],
+    },
+    {
+      id: "modalidad-c",
+      titulo: t("graduationGuide.sec.modalidad-c.title"),
+      descripcion: t("graduationGuide.sec.modalidad-c.desc"),
+      requisitos: [],
+      grupos: [
+        {
+          id: "modalidad-c-g-ceneval",
+          titulo: t("graduationGuide.grp.modalidad-c-g-ceneval.title"),
+          descripcion: t("graduationGuide.grp.modalidad-c-g-ceneval.desc"),
+          requisitos: [
+            {
+              id: "modalidad-c-r2",
+              texto: t("graduationGuide.req.modalidad-c-r2"),
+            },
+            {
+              id: "modalidad-c-r3",
+              texto: t("graduationGuide.req.modalidad-c-r3"),
+            },
+          ],
+        },
+        {
+          id: "modalidad-c-g-alto",
+          titulo: t("graduationGuide.grp.modalidad-c-g-alto.title"),
+          descripcion: t("graduationGuide.grp.modalidad-c-g-alto.desc"),
+          requisitos: [
+            {
+              id: "modalidad-c-r4",
+              texto: t("graduationGuide.req.modalidad-c-r4"),
+            },
+            {
+              id: "modalidad-c-r5",
+              texto: t("graduationGuide.req.modalidad-c-r5"),
+            },
+            {
+              id: "modalidad-c-r6",
+              texto: t("graduationGuide.req.modalidad-c-r6"),
+            },
+          ],
+        },
+        {
+          id: "modalidad-c-g-posgrado",
+          titulo: t("graduationGuide.grp.modalidad-c-g-posgrado.title"),
+          descripcion: t("graduationGuide.grp.modalidad-c-g-posgrado.desc"),
+          requisitos: [
+            {
+              id: "modalidad-c-r7",
+              texto: t("graduationGuide.req.modalidad-c-r7"),
+            },
+            {
+              id: "modalidad-c-r8",
+              texto: t("graduationGuide.req.modalidad-c-r8"),
+            },
+          ],
+        },
+        {
+          id: "modalidad-c-g-ampliacion",
+          titulo: t("graduationGuide.grp.modalidad-c-g-ampliacion.title"),
+          descripcion: t("graduationGuide.grp.modalidad-c-g-ampliacion.desc"),
+          requisitos: [
+            {
+              id: "modalidad-c-r9",
+              texto: t("graduationGuide.req.modalidad-c-r9"),
+            },
+            {
+              id: "modalidad-c-r10",
+              texto: t("graduationGuide.req.modalidad-c-r10"),
+            },
+          ],
+        },
+        {
+          id: "modalidad-c-g-diplomado",
+          titulo: t("graduationGuide.grp.modalidad-c-g-diplomado.title"),
+          descripcion: t("graduationGuide.grp.modalidad-c-g-diplomado.desc"),
+          requisitos: [
+            {
+              id: "modalidad-c-r11",
+              texto: t("graduationGuide.req.modalidad-c-r11"),
+            },
+            {
+              id: "modalidad-c-r12",
+              texto: t("graduationGuide.req.modalidad-c-r12"),
+            },
+            {
+              id: "modalidad-c-r13",
+              texto: t("graduationGuide.req.modalidad-c-r13"),
+            },
+          ],
+        },
+      ],
+    },
+    {
+      id: "flujo",
+      titulo: t("graduationGuide.sec.flujo.title"),
+      descripcion: t("graduationGuide.sec.flujo.desc"),
+      requisitos: [],
+    },
+  ];
+}
 
 const IDS_MODALIDAD = new Set(["modalidad-a", "modalidad-b", "modalidad-c"]);
-
-const SECCIONES_MODALIDAD = SECCIONES.filter((s) => IDS_MODALIDAD.has(s.id));
-const SECCION_FLUJO = SECCIONES.find((s) => s.id === "flujo");
 
 const { Paragraph } = Typography;
 
 export default function GuiaTitulacion() {
+  const { t } = useTranslation();
+  const SECCIONES = useMemo(() => construirSecciones(t), [t]);
+  const SECCIONES_MODALIDAD = useMemo(
+    () => SECCIONES.filter((s) => IDS_MODALIDAD.has(s.id)),
+    [SECCIONES],
+  );
+  const SECCION_FLUJO = useMemo(
+    () => SECCIONES.find((s) => s.id === "flujo"),
+    [SECCIONES],
+  );
+
   const [checkedMap, setCheckedMap] = useState<Record<string, boolean>>({});
   const [modalidadSeleccionadaId, setModalidadSeleccionadaId] = useState<
     string | null
@@ -410,7 +410,13 @@ export default function GuiaTitulacion() {
       0,
     );
     return Math.round((completados / total) * 100);
-  }, [checkedMap, modalidadSeleccionadaId, alternativaGrupoId]);
+  }, [
+    checkedMap,
+    modalidadSeleccionadaId,
+    alternativaGrupoId,
+    SECCIONES,
+    SECCIONES_MODALIDAD,
+  ]);
 
   const toggleRequisito = (id: string, value: boolean) => {
     setCheckedMap((prev) => ({ ...prev, [id]: value }));
@@ -445,7 +451,7 @@ export default function GuiaTitulacion() {
       modalidadSeleccionadaId
         ? SECCIONES_MODALIDAD.find((s) => s.id === modalidadSeleccionadaId)
         : undefined,
-    [modalidadSeleccionadaId],
+    [modalidadSeleccionadaId, SECCIONES_MODALIDAD],
   );
 
   const grupoAlternativaSeleccionado = useMemo(() => {
@@ -509,7 +515,7 @@ export default function GuiaTitulacion() {
               color: "#072340",
             }}
           >
-            Detalles
+            {t("graduationGuide.detalles")}
           </Button>
         </div>
       </div>
@@ -556,7 +562,7 @@ export default function GuiaTitulacion() {
               }}
             >
               {esFlujoInformativo
-                ? "Diagrama de flujo"
+                ? t("graduationGuide.diagramaFlujo")
                 : `${porcentaje}% (${completados}/${total})`}
             </span>
           </div>
@@ -578,7 +584,9 @@ export default function GuiaTitulacion() {
             >
               {seccion.descripcion}
             </Paragraph>
-            {esFlujoInformativo ? renderDiagramaProcesoTitulacion() : null}
+            {esFlujoInformativo
+              ? renderDiagramaProcesoTitulacion(t("graduationGuide.diagramAlt"))
+              : null}
             {!esFlujoInformativo &&
             seccion.grupos &&
             seccion.grupos.length > 0 ? (
@@ -672,7 +680,7 @@ export default function GuiaTitulacion() {
           textAlign: "center",
         }}
       >
-        Marca una opción para ver los requisitos de esa modalidad.
+        {t("graduationGuide.pickModalidadHint")}
       </Paragraph>
     );
   } else if (
@@ -705,7 +713,7 @@ export default function GuiaTitulacion() {
             textAlign: "center",
           }}
         >
-          ¿Qué alternativa de esta modalidad vas a seguir?
+          {t("graduationGuide.pickAlternativeTitle")}
         </Paragraph>
         <div
           style={{
@@ -798,8 +806,7 @@ export default function GuiaTitulacion() {
               textAlign: "center",
             }}
           >
-            Marca una alternativa para ver sus requisitos. El progreso general
-            solo considerará los de la alternativa elegida.
+            {t("graduationGuide.pickAlternativeHint")}
           </Paragraph>
         )}
       </div>
@@ -824,7 +831,7 @@ export default function GuiaTitulacion() {
           textAlign: "center",
         }}
       >
-        No se encontró la modalidad seleccionada.
+        {t("graduationGuide.modalidadNotFound")}
       </Paragraph>
     );
   }
@@ -839,9 +846,11 @@ export default function GuiaTitulacion() {
       }}
     >
       <div style={{ margin: "-10px -10px 0 -10px" }}>
-        <CabeceraTitulo variante="dorado">GUÍA DE</CabeceraTitulo>
+        <CabeceraTitulo variante="dorado">
+          {t("graduationGuide.guideHeader1")}
+        </CabeceraTitulo>
         <CabeceraTitulo variante="azul" style={{ width: "95%" }}>
-          TITULACIÓN
+          {t("graduationGuide.guideHeader2")}
         </CabeceraTitulo>
       </div>
 
@@ -857,9 +866,7 @@ export default function GuiaTitulacion() {
           marginBottom: 10,
         }}
       >
-        Esta sección muestra los requisitos para titulación que debes cumplir
-        para obtener tu título. Si tienes alguna duda, revisa la sección de
-        detalles de cada requisito para obtener más información.
+        {t("graduationGuide.intro")}
       </Paragraph>
 
       <div
@@ -888,7 +895,7 @@ export default function GuiaTitulacion() {
               fontFamily: '"poppins-semibold", sans-serif',
             }}
           >
-            Progreso general
+            {t("graduationGuide.progresoGeneral")}
           </div>
           <div
             style={{
@@ -926,7 +933,7 @@ export default function GuiaTitulacion() {
           textAlign: "center",
         }}
       >
-        ¿Qué modalidad de titulación vas a desarrollar?
+        {t("graduationGuide.modalidadPregunta")}
       </Paragraph>
 
       <div
@@ -948,7 +955,7 @@ export default function GuiaTitulacion() {
             style={{ fontFamily: '"poppins-regular", sans-serif' }}
           >
             <span style={{ fontFamily: '"poppins-regular", sans-serif' }}>
-              {seccion.titulo.replace(/^Modalidad:\s*/, "")}
+              {seccion.titulo.replace(/^(Modalidad|Modality):\s*/i, "").trim()}
             </span>
           </Checkbox>
         ))}
